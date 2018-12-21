@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="tO8-aO-X6r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--demo-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="1RP-h7-goJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="7Jo-qa-ZtX"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pjh-SU-aqn">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="录音文件路径" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hpV-IK-dFa">
+                                        <rect key="frame" x="8" y="8" width="359" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="wJV-zj-FhG"/>
+                                        </constraints>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="neV-HG-rGq">
+                                        <rect key="frame" x="8" y="46" width="359" height="36"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="36" id="PEw-ub-Tnw"/>
+                                        </constraints>
+                                        <state key="normal" title="选择文件"/>
+                                        <connections>
+                                            <action selector="onPickAudio:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yfw-Va-y1l"/>
+                                        </connections>
+                                    </button>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="How are you" borderStyle="roundedRect" placeholder="输入文本" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DXd-7y-wjH">
+                                        <rect key="frame" x="8" y="90" width="359" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="BYZ-38-t0r" id="eP9-O7-fzy"/>
+                                        </connections>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y6Q-dO-4aX">
+                                        <rect key="frame" x="8" y="128" width="359" height="36"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="36" id="AAX-s0-TXW"/>
+                                        </constraints>
+                                        <state key="normal" title="开始录音"/>
+                                        <connections>
+                                            <action selector="onRecord:" destination="BYZ-38-t0r" eventType="touchUpInside" id="f9j-Vo-Pjz"/>
+                                        </connections>
+                                    </button>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Qjw-3l-TPk">
+                                        <rect key="frame" x="8" y="172" width="359" height="29"/>
+                                        <segments>
+                                            <segment title="词模式"/>
+                                            <segment title="句模式"/>
+                                        </segments>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="selectedSegmentIndex">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </segmentedControl>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ioH-CL-fLM">
+                                        <rect key="frame" x="8" y="244" width="359" height="29"/>
+                                        <segments>
+                                            <segment title="流式传输"/>
+                                            <segment title="一次性传输"/>
+                                        </segments>
+                                    </segmentedControl>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="5BS-Om-AqA">
+                                        <rect key="frame" x="8" y="208" width="359" height="29"/>
+                                        <segments>
+                                            <segment title="RAW"/>
+                                            <segment title="WAV"/>
+                                            <segment title="MP3"/>
+                                        </segments>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="selectedSegmentIndex">
+                                                <integer key="value" value="2"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </segmentedControl>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="返回结果" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="tVG-4I-wWW">
+                                        <rect key="frame" x="8" y="324" width="359" height="271"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="271" id="pQI-oD-6nb"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ygK-zt-cNl">
+                                        <rect key="frame" x="8" y="280" width="359" height="36"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="36" id="BRq-QL-YMQ"/>
+                                        </constraints>
+                                        <state key="normal" title="开始分片录音"/>
+                                        <connections>
+                                            <action selector="onFragRecord:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FZE-bQ-G8M"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="tVG-4I-wWW" firstAttribute="bottom" secondItem="Pjh-SU-aqn" secondAttribute="bottomMargin" id="3b8-Mk-1dx"/>
+                                    <constraint firstItem="5BS-Om-AqA" firstAttribute="leading" secondItem="ioH-CL-fLM" secondAttribute="leading" id="Bqz-DZ-aoo"/>
+                                    <constraint firstItem="hpV-IK-dFa" firstAttribute="centerX" secondItem="Pjh-SU-aqn" secondAttribute="centerX" id="Cmy-y1-YuN"/>
+                                    <constraint firstItem="5BS-Om-AqA" firstAttribute="trailing" secondItem="ioH-CL-fLM" secondAttribute="trailing" id="Jfu-gR-lfa"/>
+                                    <constraint firstItem="y6Q-dO-4aX" firstAttribute="trailing" secondItem="Qjw-3l-TPk" secondAttribute="trailing" id="L1a-1P-pyn"/>
+                                    <constraint firstItem="hpV-IK-dFa" firstAttribute="trailing" secondItem="Pjh-SU-aqn" secondAttribute="trailingMargin" id="NK9-Of-dao"/>
+                                    <constraint firstItem="hpV-IK-dFa" firstAttribute="top" secondItem="Pjh-SU-aqn" secondAttribute="topMargin" id="NV1-N5-K4J"/>
+                                    <constraint firstItem="ioH-CL-fLM" firstAttribute="leading" secondItem="ygK-zt-cNl" secondAttribute="leading" id="Na9-dR-otI"/>
+                                    <constraint firstItem="ygK-zt-cNl" firstAttribute="top" secondItem="ioH-CL-fLM" secondAttribute="bottom" constant="8" symbolic="YES" id="Suj-0U-oXY"/>
+                                    <constraint firstItem="Qjw-3l-TPk" firstAttribute="trailing" secondItem="5BS-Om-AqA" secondAttribute="trailing" id="UvL-JO-MoS"/>
+                                    <constraint firstItem="DXd-7y-wjH" firstAttribute="top" secondItem="neV-HG-rGq" secondAttribute="bottom" constant="8" symbolic="YES" id="UzZ-78-EaB"/>
+                                    <constraint firstItem="Qjw-3l-TPk" firstAttribute="leading" secondItem="5BS-Om-AqA" secondAttribute="leading" id="VKa-Od-sQz"/>
+                                    <constraint firstItem="neV-HG-rGq" firstAttribute="trailing" secondItem="DXd-7y-wjH" secondAttribute="trailing" id="VSK-Gw-fUa"/>
+                                    <constraint firstItem="Qjw-3l-TPk" firstAttribute="top" secondItem="y6Q-dO-4aX" secondAttribute="bottom" constant="8" symbolic="YES" id="YeK-Tc-cMF"/>
+                                    <constraint firstItem="neV-HG-rGq" firstAttribute="leading" secondItem="DXd-7y-wjH" secondAttribute="leading" id="Zp2-Gl-XUM"/>
+                                    <constraint firstItem="hpV-IK-dFa" firstAttribute="trailing" secondItem="neV-HG-rGq" secondAttribute="trailing" id="d4C-61-3vt"/>
+                                    <constraint firstItem="tVG-4I-wWW" firstAttribute="leading" secondItem="ygK-zt-cNl" secondAttribute="leading" id="fnw-qA-RcH"/>
+                                    <constraint firstItem="neV-HG-rGq" firstAttribute="top" secondItem="hpV-IK-dFa" secondAttribute="bottom" constant="8" symbolic="YES" id="ft7-EB-Lzp"/>
+                                    <constraint firstItem="DXd-7y-wjH" firstAttribute="leading" secondItem="y6Q-dO-4aX" secondAttribute="leading" id="glF-Bt-gzG"/>
+                                    <constraint firstItem="y6Q-dO-4aX" firstAttribute="top" secondItem="DXd-7y-wjH" secondAttribute="bottom" constant="8" symbolic="YES" id="gpT-3w-JrO"/>
+                                    <constraint firstItem="y6Q-dO-4aX" firstAttribute="leading" secondItem="Qjw-3l-TPk" secondAttribute="leading" id="hU2-hc-d0x"/>
+                                    <constraint firstItem="ioH-CL-fLM" firstAttribute="trailing" secondItem="ygK-zt-cNl" secondAttribute="trailing" id="jLV-sf-Zce"/>
+                                    <constraint firstItem="tVG-4I-wWW" firstAttribute="trailing" secondItem="ygK-zt-cNl" secondAttribute="trailing" id="juo-uQ-J12"/>
+                                    <constraint firstItem="ioH-CL-fLM" firstAttribute="top" secondItem="5BS-Om-AqA" secondAttribute="bottom" constant="8" symbolic="YES" id="oE8-BA-P9x"/>
+                                    <constraint firstItem="DXd-7y-wjH" firstAttribute="trailing" secondItem="y6Q-dO-4aX" secondAttribute="trailing" id="psz-Mc-GHA"/>
+                                    <constraint firstItem="hpV-IK-dFa" firstAttribute="leading" secondItem="Pjh-SU-aqn" secondAttribute="leadingMargin" id="rPf-Zf-Vjm"/>
+                                    <constraint firstItem="tVG-4I-wWW" firstAttribute="top" secondItem="ygK-zt-cNl" secondAttribute="bottom" constant="8" symbolic="YES" id="rcB-4L-ZTd"/>
+                                    <constraint firstItem="hpV-IK-dFa" firstAttribute="leading" secondItem="neV-HG-rGq" secondAttribute="leading" id="ufe-X9-pyR"/>
+                                    <constraint firstItem="5BS-Om-AqA" firstAttribute="top" secondItem="Qjw-3l-TPk" secondAttribute="bottom" constant="8" symbolic="YES" id="xBN-NK-1db"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Pjh-SU-aqn" secondAttribute="trailing" id="QaC-ob-lCw"/>
+                            <constraint firstItem="Pjh-SU-aqn" firstAttribute="bottom" secondItem="7Jo-qa-ZtX" secondAttribute="top" id="bPp-RP-WDf"/>
+                            <constraint firstItem="Pjh-SU-aqn" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="hsz-tW-Oms"/>
+                            <constraint firstItem="Pjh-SU-aqn" firstAttribute="top" secondItem="1RP-h7-goJ" secondAttribute="bottom" id="no4-Pr-lsu"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="demo" id="BlJ-CL-e3D"/>
+                    <connections>
+                        <outlet property="audioPath" destination="hpV-IK-dFa" id="VbG-6F-Wl2"/>
+                        <outlet property="formatSegment" destination="5BS-Om-AqA" id="XSf-5j-OWl"/>
+                        <outlet property="fragRecordButton" destination="ygK-zt-cNl" id="6cm-UF-Yzl"/>
+                        <outlet property="inputTextField" destination="DXd-7y-wjH" id="oXf-gP-4S1"/>
+                        <outlet property="modeSegment" destination="Qjw-3l-TPk" id="F5j-Xp-efQ"/>
+                        <outlet property="recordButton" destination="y6Q-dO-4aX" id="eXz-71-vMo"/>
+                        <outlet property="responseTextView" destination="tVG-4I-wWW" id="7J0-iQ-KIH"/>
+                        <outlet property="transSegment" destination="ioH-CL-fLM" id="kfp-7L-sk8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="296.80000000000001" y="291.90404797601201"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Uqc-gc-aX0">
+            <objects>
+                <navigationController id="tO8-aO-X6r" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="xuC-c6-3fm">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="oHG-wS-duC"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ppw-By-DX4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-550" y="298"/>
+        </scene>
+    </scenes>
+</document>
