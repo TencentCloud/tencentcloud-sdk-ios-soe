@@ -1,113 +1,246 @@
-# 智聆口语评测iOS SDK功能设计与使用说明文档:
+# TAISDK集成文档
 
-## 一、TencentSOE.fremework
-腾讯云智聆口语评测（Smart Oral Evaluation）英语口语评测服务，是基于英语口语类教育培训场景和腾讯云的语音处理技术，应用特征提取、声学模型和语音识别算法，为儿童和成人提供高准确度的英语口语发音评测。支持单词和句子模式的评测，多维度反馈口语表现。支持单词和句子评测模式，可广泛应用于英语口语类教学应用中。
-本SDK为智聆口语测评的iOS版本，封装了对智聆口语测评网络API的调用及本地音频文件处理，并提供简单的录音功能，使用者可以专注于从业务切入，方便简洁地进行二次开发。
-本文档只对iOS SDK进行描述，详细的网络API说明请见在线文档https://cloud.tencent.com/document/product/884
+TAISDK是一款封装了腾讯云教育AI能力的SDK，通过集成SDK，用户可以快速接入相关产品功能，如数学作业批改、智玲口语评测等。
 
-## 二、使用说明
-#### 2.1 工程及demo源码地址
-https://github.com/TencentCloud/tencentcloud-sdk-ios-soe
-#### 2.2 获取密钥
+### 一、获取密钥
+
 secretId和secretKey是使用SDK的安全凭证，通过以下方式获取
+
 ![](http://dldir1.qq.com/hudongzhibo/taisdk/document/taisdk_cloud_1.png)
-#### 2.3 本SDK的主文件为TencentSOE.framework，依赖第三方库：lame.framework,将二者直接引入项目中即可
-第三方库lame.framework的主要目的是为了实现文件类型转换
-#### 2.4 导入工程
-在github上下载本工程并导入到项目工程中
-![](http://dldir1.qq.com/hudongzhibo/taisdk/document/taisdk_ios_2.png)
 
-## 三、sdk整体使用流程（参见TSOEDemo工程）
-#### 3.1 初始化sdk（参见demo中的initSdk）
-```
-    [TXTencentSOE shareTencentSOE].VoiceSecretID = @"";
-    [TXTencentSOE shareTencentSOE].VoiceSecretKey = @"";
-    [TXTencentSOE shareTencentSOE].Region = @"";
-    [TXTencentSOE shareTencentSOE].SoeAppId = @"";
-    [TXTencentSOE shareTencentSOE].isLongLifesession = @"1";
-    [TXTencentSOE shareTencentSOE].requestDomain = @"soe.tencentcloudapi.com";
-```
+### 二、SDK集成
 
-#### 3.2 开始分片录制(参见demo中的startRecord)
-```
-    [TXTencentSOE shareTencentSOE].seqID = 0;
-    [TXTencentSOE shareTencentSOE].isVoiceVerifyInit= 0;
-    [_recorder startRecording];
+#### 1、导入SDK
+
+[Demo源码下载](https://github.com/TencentCloud/tencentcloud-sdk-ios-soe)
+
+从Demo获取SDK并导入到工程
+![](http://dldir1.qq.com/hudongzhibo/taisdk/document/taisdk_ios_1.png)
+
+
+#### 2、接口调用
+
+##### 数学作业批改
+
+
+```objc
+//一、声明并定义对象
+@property (strong, nonatomic) TAIMathCorrection *mathCorrection;
+self.mathCorrection = [[TAIMathCorrection alloc] init];
 ```
 
-#### 3.3 同时处理分片回调的数据并进行口语评测(参见demo中的AudioQueueRecorder回调)
-```
-    _verification = [[TXVoiceVerification alloc] init];
-    NSString *dataStr = [TXBase64File getBase64StringWithFileData:mp3Data];
-    if(![TXTencentSOE shareTencentSOE].isVoiceVerifyInit){
-        [TXTencentSOE shareTencentSOE].isVoiceVerifyInit = 1;
-        [self initVoice:dataStr isEnd:isEnd];
-    }
-    else{
-        [self vertifyVoice:dataStr isEnd:isEnd];
-    }
-```
-
-#### 3.4 最后一个分片完成后，处理口语评测的结果（参见demo中的vertifyVoice返回）
-```
-    TXVoiceVerificationFileType type = [self getFileType];
-    __weak typeof(self) ws = self;
-    [_verification oralProcessTransmitWithVoiceFileType:type userVoiceData:@[date] sessionID:_sessionId isEnd:isEnd result:^(TXVoiceVerification *voiceVerification, NSDictionary * _Nullable result, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        [ws setResponse:[NSString stringWithFormat:@"%@", result]];
-    }];
+```objc
+//二、初始化参数
+TAIMathCorrectionParam *param = [[TAIMathCorrectionParam alloc] init];
+param.sessionId = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
+param.appId = @"";
+param.imageData = UIImageJPEGRepresentation(_imageView.image, 0);
+param.secretId = @"";
+param.secretKey = @"";
+//三、作业批改
+[self.mathCorrection correction:param callback:^(TAIError *error, TAIMathCorrectionRet *result) {
+    //成功返回TAIMathCorrectionRet
+}];
 ```
 
-## 四、模块设计说明
-TencentSOE.fremework有四大模块：配置信息，录音，对文件进行base64加密，校验语音。
-以下是四大模块的详细说明：
-#### 4.1 模块1：配置信息（TXTencentSOE）
-TXTencentSOE是一个单例，需要配置申请的SecretID和SecretKey，代码如下：
-```
-    // 初始化语音评测单例
-    [TXTencentSOE shareTencentSOE].VoiceSecretID = @"";//填写在官网申请的secretid
-    [TXTencentSOE shareTencentSOE].VoiceSecretKey = @"";//填写在官网申请的secretkey
-    [TXTencentSOE shareTencentSOE].Region = @"";
-    [TXTencentSOE shareTencentSOE].SoeAppId = @"";//填写soeappid
-    [TXTencentSOE shareTencentSOE].isLongLifesession = @"1";
-    [TXTencentSOE shareTencentSOE].requestDomain = @"soe.tencentcloudapi.com";//可根据实际选择就近的请求域名
-```
-#### 4.2 模块2：录音(TXRecorder)
-TXRecorder是对录音功能的封装，这里依赖了系统库AudioToolbox和第三方库lame，这里包括了三个对象方法，分别是：
-```
-@selector(startRecording:)//开始录音;
-@selector(stopRecording)//停止录音;
-@selector(AudioQueueRecorder:(TXRecorder *)recorder mp3Data:(NSData *)mp3Data isEnd:(int)isEnd)//回调录制数据到上层app
-```
-#### 4.3 模块3：对文件进行base64加密（TXBase64File）
-TXBase64File需要关注一个方法
-```
-@selector(getBase64StringWithFileData:)//对一段data做base64编码
-```
-#### 4.4 模块4：校验语音(TXVoiceVerification)
-```
-TXVoiceVerification//用来校验语音，并进行口语评测，分着两部分：初始化接口，发音数据传输接口。详细说明如下：
-```
-初始化接口：
-```
-@selector(oralProcessInitWithSessionID:RefText:workMode:evaluationMode:ScoreCoeff:result:)
-```
-参数说明：
-* sessionID：语音段唯一标识，一个完整语音一个SessionId
-* RefText：被评估语音对应的文本
-* workMode：语音输入模式，0流式分片，1非流式一次性评估，分别与枚举值相对应
-* evaluationMode：评估模式，0:词模式, 1:句子模式，当为词模式评估时，能够提供每个音节的评估信息，当为句子模式时，能够提供完整度和流利度信息。
-* ScoreCoeff：评价苛刻指数，取值为[1.0 - 4.0]范围内的浮点数，用于平滑不同年龄段的分数，1.0为小年龄段，4.0为最高年龄段
-* block：接口运行结果返回的block，在block里的result对应结果，error对应错误信息
+##### 智玲口语评测
 
-发音数据传输接口：
+
+```objc
+//一、声明并定义对象
+@property (strong, nonatomic) TAIOralEvaluation *oralEvaluation;
+self.oralEvaluation = [[TAIOralEvaluation alloc] init];
+self.oralEvaluation.delegate = self;
 ```
-@selector(oralProcessTransmitWithVoiceFileType:userVoiceData:sessionID:result:)
+
+```objc
+//二、数据回调
+- (void)oralEvaluation:(TAIOralEvaluation *)oralEvaluation onEvaluateData:(TAIOralEvaluationData *)data result:(TAIOralEvaluationRet *)result error:(TAIError *)error
+{
+    //数据和结果回调（只有data.bEnd为YES，result有效）
+}
 ```
-参数说明：
-* voiceFileType：文件类型，有raw,wav,mp3三种类型
-* userVoiceDataArray：要校验的语音数组，采用分片传输，只需要传入只有一个元素的数组就可以了，这个参数的传输依赖于TXBase64File生成的字符串与数组
-* sessionID：同初始化接口的sessionID
-* block：同初始化接口的block
+
+* 内部录制（SDK内部录制音频并传输，推荐）
+
+```objc
+//三、初始化参数
+TAIOralEvaluationParam *param = [[TAIOralEvaluationParam alloc] init];
+param.sessionId = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
+param.appId = @"";
+param.workMode = TAIOralEvaluationWorkMode_Once;
+param.evalMode = TAIOralEvaluationEvalMode_Sentence;
+param.storageMode = TAIOralEvaluationStorageMode_Disable;
+param.serverType = TAIOralEvaluationServerType_English;
+param.scoreCoeff = 1.0;
+param.fileType = TAIOralEvaluationFileType_Mp3;//只支持mp3
+param.refText = @"";
+param.secretId = @"";
+param.secretKey = @"";
+//四、开始录制
+[self.oralEvaluation startRecordAndEvaluation:param callback:^(TAIError *error) 
+    //结果返回
+}];
+```
+
+```objc
+//五、结束录制
+[self.oralEvaluation stopRecordAndEvaluation:^(TAIError *error) {
+    //结果返回
+}];
+```
+
+* 外部录制（SDK外部录制音频数据作为Api调用参数）
+
+```objc
+//三、初始化参数
+TAIOralEvaluationParam *param = [[TAIOralEvaluationParam alloc] init];
+param.sessionId = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
+param.appId = @"";
+param.workMode = TAIOralEvaluationWorkMode_Once;
+param.evalMode = TAIOralEvaluationEvalMode_Sentence;
+param.storageMode = TAIOralEvaluationStorageMode_Disable;
+param.serverType = TAIOralEvaluationServerType_English;
+param.scoreCoeff = 1.0;
+param.fileType = TAIOralEvaluationFileType_Mp3;
+param.refText = @"hello guagua";
+param.secretId = @"";
+param.secretKey = @"";
+
+NSString *mp3Path = [[NSBundle mainBundle] pathForResource:@"hello_guagua" ofType:@"mp3"];
+TAIOralEvaluationData *data = [[TAIOralEvaluationData alloc] init];
+data.seqId = 1;
+data.bEnd = YES;
+data.audio = [NSData dataWithContentsOfFile:mp3Path];
+__weak typeof(self) ws = self;
+//四、传输数据
+[self.oralEvaluation oralEvaluation:param data:data callback:^(TAIError *error) {
+    //接口调用结果返回
+}];
+```
+
+
+注意事项
+> 外部录制三种格式目前仅支持16k采样率16bit编码单声道，如有不一致可能导致评估不准确或失败
+
+
+
+#### 3、签名
+
+secretKey属于安全敏感参数，线上版本一般由业务后台生成[临时secretKey](https://cloud.tencent.com/document/api/598/13895)或者SDK外部签名返回到客户端。
+
+>（1）内部签名：sdk内部通过用户提供的secretKey和secretId计算签名，用户无需关心签名细节
+>（2）外部签名：sdk外部调用getStringToSign获取签名字符串，然后根据[签名规则（参考步骤三）](https://cloud.tencent.com/document/product/884/30657) 进行签名。口语评测时需提供secretId、timestamp和signature参数
+
+
+```objc
+//获取签名所需字符串
+- (NSString *)getStringToSign:(NSInteger)timestamp;
+```
+
+注意事项
+>时间戳timestamp必须和TAIEvaluationParam参数的timestamp一致
+
+#### 4、参数说明
+
+##### 公共参数
+* TAICommonParam参数说明
+
+| 参数|类型|必填|说明 |
+|---|---|---|---|
+|appId|NSString|是|appId|
+|timeout|NSInteger|否|超时时间，默认30秒|
+|secretId|NSString|是|密钥Id|
+|secretKey|NSString|内部签名：必填|密钥Key|
+|signature|NSString|外部签名：必填|签名|
+|timestamp|NSInteger|外部签名：必填|秒级时间戳|
+
+* TAIError参数说明
+
+| 参数|类型|说明 |
+|---|---|---|
+|code|TAIErrCode|错误码|
+|desc|NSString|错误描述|
+|requestId|NSString|请求id，定位错误信息|
+
+##### 数学作业批改
+* TAIMathCorrectionParam参数说明
+
+| 参数|类型|必填|说明 |
+|---|---|---|---|
+|sessionId|NSString|是|一次批改唯一标识|
+|imageData|NSData|是|图片数据|
+
+* TAIMathCorrectionRet参数说明
+
+| 参数|类型|说明 |
+|---|---|---|---|
+|sessionId|NSString|一次批改唯一标识|
+|formula|NSString|算式|
+|items|NSArray<TAIMathCorrectionItem *>|算式结果|
+
+
+* TAIMathCorrectionItem参数说明
+
+| 参数|类型|说明 |
+|---|---|---|---|
+|result|BOOL|算式结果|
+|rect|CGRect|算式坐标|
+|formula|NSString|算式字符串|
+
+
+##### 智玲口语评测
+
+* TAIOralEvaluationParam参数说明
+
+| 参数|类型|必填|说明 |
+|---|---|---|---|
+|sessionId|NSString|是|一次批改唯一标识|
+|workMode|TAIOralEvaluationWorkMode|是|传输方式|
+|evalMode|TAIOralEvaluationEvalMode|是|评测模式|
+|fileType|TAIOralEvaluationFileType|是|数据格式（目前支持mp3）|
+|storageMode|TAIOralEvaluationStorageMode|式|是否存储音频文件|
+|serverType|TAIOralEvaluationServerType|是|语言类型|
+|scoreCoeff|float|是|苛刻指数，取值为[1.0 - 4.0]范围内的浮点数，用于平滑不同年龄段的分数，1.0为小年龄段，4.0为最高年龄段|
+|refText|NSString|是|被评估语音对应的文本|
+
+* TAIOralEvaluationData参数说明
+
+| 参数|类型|说明 |
+|---|---|---|---|
+|seqId|NSInteger|分片序列号|
+|bEnd|BOOL|是否最后一个分片|
+|audio|NSData|音频数据|
+
+* TAIMathCorrectionRet参数说明
+
+| 参数|类型|说明 |
+|---|---|---|---|
+|sessionId|NSString|一次批改唯一标识|
+|pronAccuracy|float|发音精准度，取值范围[-1, 100]，当取-1时指完全不匹配|
+|pronFluency|float|发音流利度，取值范围[0, 1]，当为词模式时，取值无意义|
+|pronCompletion|float|发音完整度，取值范围[0, 1]，当为词模式时，取值无意义|
+|audioUrl|NSString|保存语音音频文件的下载地址（TAIOralEvaluationStorageMode_Enable有效）|
+|words|NSArray<TAIOralEvaluationWord *>|详细发音评估结果|
+
+
+* TAIOralEvaluationWord参数说明
+
+| 参数|类型|说明 |
+|---|---|---|---|
+|beginTime|int|当前单词语音起始时间点，单位为ms|
+|endTime|int|当前单词语音终止时间点，单位为ms|
+|pronAccuracy|float|单词发音准确度，取值范围[-1, 100]，当取-1时指完全不匹配|
+|pronFluency|float|单词发音流利度，取值范围[0, 1]|
+|word|NSString|当前词|
+|matchTag|int|当前词与输入语句的匹配情况，0:匹配单词、1：新增单词、2：缺少单词|
+
+
+
+
+
+
+
 
 
 

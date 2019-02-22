@@ -1,0 +1,408 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CF1BC4DC221E4BBF008102C8 /* hello.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CF1BC4D8221E4BBE008102C8 /* hello.mp3 */; };
+		CF1BC4DD221E4BBF008102C8 /* do_you_like_blue.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CF1BC4DA221E4BBE008102C8 /* do_you_like_blue.mp3 */; };
+		CF1BC4DE221E4BBF008102C8 /* hello_guagua.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CF1BC4DB221E4BBF008102C8 /* hello_guagua.mp3 */; };
+		CF1F3B7D221E8DA1000A4E43 /* lame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF1F3B7B221E8DA1000A4E43 /* lame.framework */; };
+		CF1F3B7E221E8DA1000A4E43 /* TAISDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF1F3B7C221E8DA1000A4E43 /* TAISDK.framework */; };
+		CF98723521F090CF00E48AD8 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF98723421F090CF00E48AD8 /* TableViewController.m */; };
+		CFE5342521AEA0310052DAD5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CFE5342421AEA0310052DAD5 /* AppDelegate.m */; };
+		CFE5342821AEA0310052DAD5 /* MathCorrectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFE5342721AEA0310052DAD5 /* MathCorrectionViewController.m */; };
+		CFE5342B21AEA0310052DAD5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CFE5342921AEA0310052DAD5 /* Main.storyboard */; };
+		CFE5342D21AEA0330052DAD5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFE5342C21AEA0330052DAD5 /* Assets.xcassets */; };
+		CFE5343021AEA0330052DAD5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CFE5342E21AEA0330052DAD5 /* LaunchScreen.storyboard */; };
+		CFE5343321AEA0330052DAD5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CFE5343221AEA0330052DAD5 /* main.m */; };
+		CFFFC2F421D3BD5800A58C88 /* OralEvaluationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFFFC2F321D3BD5800A58C88 /* OralEvaluationViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		CF1BC4D8221E4BBE008102C8 /* hello.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = hello.mp3; sourceTree = "<group>"; };
+		CF1BC4DA221E4BBE008102C8 /* do_you_like_blue.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = do_you_like_blue.mp3; sourceTree = "<group>"; };
+		CF1BC4DB221E4BBF008102C8 /* hello_guagua.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = hello_guagua.mp3; sourceTree = "<group>"; };
+		CF1F3B7B221E8DA1000A4E43 /* lame.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = lame.framework; sourceTree = "<group>"; };
+		CF1F3B7C221E8DA1000A4E43 /* TAISDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TAISDK.framework; sourceTree = "<group>"; };
+		CF98723321F090CF00E48AD8 /* TableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
+		CF98723421F090CF00E48AD8 /* TableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
+		CFE5342021AEA0310052DAD5 /* TAIDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TAIDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CFE5342321AEA0310052DAD5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		CFE5342421AEA0310052DAD5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		CFE5342621AEA0310052DAD5 /* MathCorrectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MathCorrectionViewController.h; sourceTree = "<group>"; };
+		CFE5342721AEA0310052DAD5 /* MathCorrectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MathCorrectionViewController.m; sourceTree = "<group>"; };
+		CFE5342A21AEA0310052DAD5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		CFE5342C21AEA0330052DAD5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CFE5342F21AEA0330052DAD5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		CFE5343121AEA0330052DAD5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CFE5343221AEA0330052DAD5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		CFFFC2F221D3BD5800A58C88 /* OralEvaluationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OralEvaluationViewController.h; sourceTree = "<group>"; };
+		CFFFC2F321D3BD5800A58C88 /* OralEvaluationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OralEvaluationViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CFE5341D21AEA0310052DAD5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CF1F3B7E221E8DA1000A4E43 /* TAISDK.framework in Frameworks */,
+				CF1F3B7D221E8DA1000A4E43 /* lame.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CF1F3B6F221E8B95000A4E43 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CF1F3B7B221E8DA1000A4E43 /* lame.framework */,
+				CF1F3B7C221E8DA1000A4E43 /* TAISDK.framework */,
+			);
+			path = Frameworks;
+			sourceTree = "<group>";
+		};
+		CF3F270021BBD3C6002F1D9B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CFE5341721AEA0310052DAD5 = {
+			isa = PBXGroup;
+			children = (
+				CF1F3B6F221E8B95000A4E43 /* Frameworks */,
+				CFE5342221AEA0310052DAD5 /* TAIDemo */,
+				CFE5342121AEA0310052DAD5 /* Products */,
+				CF3F270021BBD3C6002F1D9B /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		CFE5342121AEA0310052DAD5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CFE5342021AEA0310052DAD5 /* TAIDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CFE5342221AEA0310052DAD5 /* TAIDemo */ = {
+			isa = PBXGroup;
+			children = (
+				CFE5342321AEA0310052DAD5 /* AppDelegate.h */,
+				CFE5342421AEA0310052DAD5 /* AppDelegate.m */,
+				CF98723321F090CF00E48AD8 /* TableViewController.h */,
+				CF98723421F090CF00E48AD8 /* TableViewController.m */,
+				CFE5342621AEA0310052DAD5 /* MathCorrectionViewController.h */,
+				CFE5342721AEA0310052DAD5 /* MathCorrectionViewController.m */,
+				CFFFC2F221D3BD5800A58C88 /* OralEvaluationViewController.h */,
+				CFFFC2F321D3BD5800A58C88 /* OralEvaluationViewController.m */,
+				CFE5342921AEA0310052DAD5 /* Main.storyboard */,
+				CFE5342C21AEA0330052DAD5 /* Assets.xcassets */,
+				CFE5342E21AEA0330052DAD5 /* LaunchScreen.storyboard */,
+				CFE5343121AEA0330052DAD5 /* Info.plist */,
+				CFE5343221AEA0330052DAD5 /* main.m */,
+				CF1BC4DA221E4BBE008102C8 /* do_you_like_blue.mp3 */,
+				CF1BC4DB221E4BBF008102C8 /* hello_guagua.mp3 */,
+				CF1BC4D8221E4BBE008102C8 /* hello.mp3 */,
+			);
+			path = TAIDemo;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CFE5341F21AEA0310052DAD5 /* TAIDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CFE5343621AEA0330052DAD5 /* Build configuration list for PBXNativeTarget "TAIDemo" */;
+			buildPhases = (
+				CFE5341C21AEA0310052DAD5 /* Sources */,
+				CFE5341D21AEA0310052DAD5 /* Frameworks */,
+				CFE5341E21AEA0310052DAD5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TAIDemo;
+			productName = TAIDemo;
+			productReference = CFE5342021AEA0310052DAD5 /* TAIDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CFE5341821AEA0310052DAD5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0940;
+				ORGANIZATIONNAME = kennethmiao;
+				TargetAttributes = {
+					CFE5341F21AEA0310052DAD5 = {
+						CreatedOnToolsVersion = 9.4.1;
+					};
+				};
+			};
+			buildConfigurationList = CFE5341B21AEA0310052DAD5 /* Build configuration list for PBXProject "TAIDemo" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CFE5341721AEA0310052DAD5;
+			productRefGroup = CFE5342121AEA0310052DAD5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CFE5341F21AEA0310052DAD5 /* TAIDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CFE5341E21AEA0310052DAD5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CFE5343021AEA0330052DAD5 /* LaunchScreen.storyboard in Resources */,
+				CF1BC4DD221E4BBF008102C8 /* do_you_like_blue.mp3 in Resources */,
+				CF1BC4DC221E4BBF008102C8 /* hello.mp3 in Resources */,
+				CFE5342D21AEA0330052DAD5 /* Assets.xcassets in Resources */,
+				CF1BC4DE221E4BBF008102C8 /* hello_guagua.mp3 in Resources */,
+				CFE5342B21AEA0310052DAD5 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CFE5341C21AEA0310052DAD5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CFE5342821AEA0310052DAD5 /* MathCorrectionViewController.m in Sources */,
+				CFE5343321AEA0330052DAD5 /* main.m in Sources */,
+				CFFFC2F421D3BD5800A58C88 /* OralEvaluationViewController.m in Sources */,
+				CF98723521F090CF00E48AD8 /* TableViewController.m in Sources */,
+				CFE5342521AEA0310052DAD5 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		CFE5342921AEA0310052DAD5 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CFE5342A21AEA0310052DAD5 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		CFE5342E21AEA0330052DAD5 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CFE5342F21AEA0330052DAD5 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CFE5343421AEA0330052DAD5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		CFE5343521AEA0330052DAD5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CFE5343721AEA0330052DAD5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = P7W6W36ZY5;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/../../taisdk/TAISDK/Frameworks",
+					"$(PROJECT_DIR)/Frameworks",
+					"$(PROJECT_DIR)/Frameworks/libraries_1_2_0_59/combine_framework",
+					"$(PROJECT_DIR)/Frameworks/libraries_1_2_0_59",
+				);
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/../../taisdk/TAISDK/TAISDK/**";
+				INFOPLIST_FILE = TAIDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.tencent.TAIDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CFE5343821AEA0330052DAD5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = P7W6W36ZY5;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/../../taisdk/TAISDK/Frameworks",
+					"$(PROJECT_DIR)/Frameworks",
+					"$(PROJECT_DIR)/Frameworks/libraries_1_2_0_59/combine_framework",
+					"$(PROJECT_DIR)/Frameworks/libraries_1_2_0_59",
+				);
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/../../taisdk/TAISDK/TAISDK/**";
+				INFOPLIST_FILE = TAIDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.tencent.TAIDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CFE5341B21AEA0310052DAD5 /* Build configuration list for PBXProject "TAIDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CFE5343421AEA0330052DAD5 /* Debug */,
+				CFE5343521AEA0330052DAD5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CFE5343621AEA0330052DAD5 /* Build configuration list for PBXNativeTarget "TAIDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CFE5343721AEA0330052DAD5 /* Debug */,
+				CFE5343821AEA0330052DAD5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CFE5341821AEA0310052DAD5 /* Project object */;
+}
