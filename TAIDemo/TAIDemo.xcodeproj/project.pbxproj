@@ -150,6 +150,11 @@
 				TargetAttributes = {
 					CFE5341F21AEA0310052DAD5 = {
 						CreatedOnToolsVersion = 9.4.1;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -343,8 +348,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/../../taisdk/TAISDK/Frameworks",
 					"$(PROJECT_DIR)/Frameworks",
-					"$(PROJECT_DIR)/Frameworks/libraries_1_2_0_59/combine_framework",
-					"$(PROJECT_DIR)/Frameworks/libraries_1_2_0_59",
 				);
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = TAIDemo/Info.plist;
@@ -370,8 +373,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/../../taisdk/TAISDK/Frameworks",
 					"$(PROJECT_DIR)/Frameworks",
-					"$(PROJECT_DIR)/Frameworks/libraries_1_2_0_59/combine_framework",
-					"$(PROJECT_DIR)/Frameworks/libraries_1_2_0_59",
 				);
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = TAIDemo/Info.plist;
