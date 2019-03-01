@@ -57,7 +57,7 @@
     }
     self.responseTextView.text = @"";
     TAIOralEvaluationParam *param = [[TAIOralEvaluationParam alloc] init];
-    param.sessionId = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
+    param.sessionId = [[NSUUID UUID] UUIDString];
     param.appId = [PrivateInfo shareInstance].appId;
     param.secretId = [PrivateInfo shareInstance].secretId;
     param.secretKey = [PrivateInfo shareInstance].secretKey;
@@ -80,7 +80,7 @@
 - (IBAction)onLocalRecord:(id)sender {
     self.responseTextView.text = @"";
     TAIOralEvaluationParam *param = [[TAIOralEvaluationParam alloc] init];
-    param.sessionId = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
+    param.sessionId = [[NSUUID UUID] UUIDString];
     param.appId = [PrivateInfo shareInstance].appId;
     param.secretId = [PrivateInfo shareInstance].secretId;
     param.secretKey = [PrivateInfo shareInstance].secretKey;
