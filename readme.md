@@ -32,7 +32,7 @@ self.mathCorrection = [[TAIMathCorrection alloc] init];
 ```objc
 //二、初始化参数
 TAIMathCorrectionParam *param = [[TAIMathCorrectionParam alloc] init];
-param.sessionId = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
+param.sessionId = [[NSUUID UUID] UUIDString];
 param.appId = @"";
 param.imageData = UIImageJPEGRepresentation(_imageView.image, 0);
 param.secretId = @"";
