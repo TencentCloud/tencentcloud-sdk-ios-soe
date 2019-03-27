@@ -19,6 +19,8 @@
 @property (nonatomic, assign) CGRect rect;
 //算式字符串
 @property (nonatomic, strong) NSString *formula;
+//推荐答案
+@property (nonatomic, strong) NSString *answer;
 @end
 
 
@@ -32,6 +34,8 @@
 
 
 @interface TAIMathCorrectionParam : TAICommonParam
+//业务应用id（默认为default）
+@property (nonatomic, strong) NSString *hcmAppId;
 //sessionId
 @property (nonatomic, strong) NSString *sessionId;
 //图片数据

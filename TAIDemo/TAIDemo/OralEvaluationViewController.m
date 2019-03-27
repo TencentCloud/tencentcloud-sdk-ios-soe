@@ -16,12 +16,14 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *modeSegment;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *transSegment;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *storageSegment;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *textModeSegment;
 @property (weak, nonatomic) IBOutlet UITextView *responseTextView;
 @property (weak, nonatomic) IBOutlet UITextField *coeffTextField;
 @property (weak, nonatomic) IBOutlet UIButton *recordButton;
 @property (weak, nonatomic) IBOutlet UIButton *localRecordButton;
 
 @property (strong, nonatomic) TAIOralEvaluation *oralEvaluation;
+@property (strong, nonatomic) NSString *fileName;
 
 @end
 
@@ -51,6 +53,7 @@
         }];
         return;
     }
+    _fileName = [NSString stringWithFormat:@"taisdk_%ld.mp3", (long)[[NSDate date] timeIntervalSince1970]];
     if([_coeffTextField.text isEqualToString:@""]){
         [self setResponse:@"startRecordAndEvaluation:scoreCoeff invalid"];
         return;
@@ -59,6 +62,7 @@
     TAIOralEvaluationParam *param = [[TAIOralEvaluationParam alloc] init];
     param.sessionId = [[NSUUID UUID] UUIDString];
     param.appId = [PrivateInfo shareInstance].appId;
+    param.soeAppId = [PrivateInfo shareInstance].soeAppId;
     param.secretId = [PrivateInfo shareInstance].secretId;
     param.secretKey = [PrivateInfo shareInstance].secretKey;
     param.workMode = (TAIOralEvaluationWorkMode)self.transSegment.selectedSegmentIndex;
@@ -67,7 +71,16 @@
     param.scoreCoeff = [_coeffTextField.text intValue];
     param.fileType = TAIOralEvaluationFileType_Mp3;
     param.storageMode = (TAIOralEvaluationStorageMode)self.storageSegment.selectedSegmentIndex;
+    param.textMode = (TAIOralEvaluationTextMode)self.textModeSegment.selectedSegmentIndex;
     param.refText = _inputTextField.text;
+    if(param.workMode == TAIOralEvaluationWorkMode_Stream){
+        param.timeout = 5;
+        param.retryTimes = 5;
+    }
+    else{
+        param.timeout = 30;
+        param.retryTimes = 0;
+    }
     __weak typeof(self) ws = self;
     [self.oralEvaluation startRecordAndEvaluation:param callback:^(TAIError *error) {
         if(error.code == TAIErrCode_Succ){
@@ -82,6 +95,7 @@
     TAIOralEvaluationParam *param = [[TAIOralEvaluationParam alloc] init];
     param.sessionId = [[NSUUID UUID] UUIDString];
     param.appId = [PrivateInfo shareInstance].appId;
+    param.soeAppId = [PrivateInfo shareInstance].soeAppId;
     param.secretId = [PrivateInfo shareInstance].secretId;
     param.secretKey = [PrivateInfo shareInstance].secretKey;
     param.workMode = TAIOralEvaluationWorkMode_Once;
@@ -90,6 +104,7 @@
     param.scoreCoeff = 1.0;
     param.fileType = TAIOralEvaluationFileType_Mp3;
     param.storageMode = TAIOralEvaluationStorageMode_Disable;
+    param.textMode = TAIOralEvaluationTextMode_Noraml;
     param.refText = @"hello guagua";
     
     NSString *mp3Path = [[NSBundle mainBundle] pathForResource:@"hello_guagua" ofType:@"mp3"];
@@ -106,9 +121,11 @@
 
 - (void)setResponse:(NSString *)string
 {
+    NSDateFormatter *format = [[NSDateFormatter alloc] init];
+    [format setDateFormat:@"YYYY-MM-dd HH:mm:ss.SSS"];
 //    NSString *desc = [NSString stringWithCString:[string cStringUsingEncoding:NSUTF8StringEncoding] encoding:NSNonLossyASCIIStringEncoding];
     NSString *text = _responseTextView.text;
-    text = [NSString stringWithFormat:@"%@\n%@", text, string];
+    text = [NSString stringWithFormat:@"%@\n%@ %@", text, [format stringFromDate:[NSDate date]], string];
     _responseTextView.text = text;
 }
 
@@ -118,6 +135,7 @@
     if(error.code != TAIErrCode_Succ){
         [_recordButton setTitle:@"开始录制" forState:UIControlStateNormal];
     }
+    [self writeMP3Data:data.audio fileName:_fileName];
     [self setResponse:[NSString stringWithFormat:@"oralEvaluation:seq:%ld, end:%ld, error:%@, ret:%@", (long)data.seqId, (long)data.bEnd, error, result]];
 }
 
@@ -135,5 +153,17 @@
         _oralEvaluation.delegate = self;
     }
     return _oralEvaluation;
+}
+
+- (void)writeMP3Data:(NSData *)data fileName:(NSString *)fileName
+{
+    NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+    NSString *mp3Path = [path stringByAppendingPathComponent:fileName];
+    if([[NSFileManager defaultManager] fileExistsAtPath:mp3Path] == false){
+        [[NSFileManager defaultManager] createFileAtPath:mp3Path contents:nil attributes:nil];
+    }
+    NSFileHandle *handle = [NSFileHandle fileHandleForWritingAtPath:mp3Path];
+    [handle seekToEndOfFile];
+    [handle writeData:data];
 }
 @end

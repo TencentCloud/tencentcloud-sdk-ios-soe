@@ -7,7 +7,6 @@
 //
 
 #import "MathCorrectionViewController.h"
-
 #import <TAISDK/TAIMathCorrection.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "PrivateInfo.h"
@@ -40,13 +39,17 @@
     //初始化参数
     TAIMathCorrectionParam *param = [[TAIMathCorrectionParam alloc] init];
     param.sessionId = [[NSUUID UUID] UUIDString];
-    param.imageData = UIImageJPEGRepresentation(_imageView.image, 0);
+    param.imageData = UIImageJPEGRepresentation(_imageView.image, 0.5);
     param.appId = [PrivateInfo shareInstance].appId;
     param.secretId = [PrivateInfo shareInstance].secretId;
     param.secretKey = [PrivateInfo shareInstance].secretKey;
     [self.mathCorrection mathCorrection:param callback:^(TAIError *error, TAIMathCorrectionRet *result) {
         //返回TAIEvaluationRet数组
         [ws.indicatorView stopAnimating];
+        if(error.code != 0){
+            [[[UIAlertView alloc] initWithTitle:@"提示" message:error.desc delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil] show];
+            return;
+        }
         ws.correctionRet = result;
         int i = 1;
         for (TAIMathCorrectionItem *item in result.items) {
@@ -65,6 +68,7 @@
             view.backgroundColor = [UIColor clearColor];
             [ws.view addSubview:view];
         }
+        [[[UIAlertView alloc] initWithTitle:@"提示" message:[NSString stringWithFormat:@"识别到%ld个算式", (long)result.items.count] delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil] show];
     }];
 }
 - (IBAction)onPick:(id)sender {
@@ -82,7 +86,7 @@
     UIAlertAction *picture = [UIAlertAction actionWithTitle:@"打开相册" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         UIImagePickerController *picker = [[UIImagePickerController alloc] init];
         picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        picker.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
+        picker.mediaTypes = [NSArray arrayWithObjects: @"public.image", nil];
         picker.delegate = self;
         [self presentViewController:picker animated:YES completion:nil];
     }];

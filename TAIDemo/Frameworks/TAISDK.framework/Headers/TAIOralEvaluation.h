@@ -18,6 +18,15 @@ typedef NS_ENUM(NSInteger, TAIOralEvaluationWorkMode)
     TAIOralEvaluationWorkMode_Once,
 };
 
+typedef NS_ENUM(NSInteger, TAIOralEvaluationTextMode)
+{
+    //普通文本
+    TAIOralEvaluationTextMode_Noraml = 0,
+    //音素结构文本
+    TAIOralEvaluationTextMode_Phoneme,
+};
+
+
 typedef NS_ENUM(NSInteger, TAIOralEvaluationEvalMode)
 {
     //单词模式
@@ -57,6 +66,8 @@ typedef NS_ENUM(NSInteger, TAIOralEvaluationServerType)
 };
 
 @interface TAIOralEvaluationParam : TAICommonParam
+//业务应用id（默认为default）
+@property (nonatomic, strong) NSString *soeAppId;
 //唯一标识一次评测
 @property (nonatomic, strong) NSString *sessionId;
 //传输模式
@@ -69,6 +80,8 @@ typedef NS_ENUM(NSInteger, TAIOralEvaluationServerType)
 @property (nonatomic, assign) TAIOralEvaluationStorageMode storageMode;
 //语言类型
 @property (nonatomic, assign) TAIOralEvaluationServerType serverType;
+//文本模式
+@property (nonatomic, assign) TAIOralEvaluationTextMode textMode;
 //苛刻指数[1.0-4.0]
 @property (nonatomic, assign) float scoreCoeff;
 //被评估的文本
@@ -153,6 +166,11 @@ typedef void (^TAIOralEvaluationCallback)(TAIError *error);
  * @return BOOL 是否录制
  */
 - (BOOL)isRecording;
+/**
+ * 设置分片大小，建议为1024的整数倍，默认为1024*10
+ * @param size 分片大小
+ */
+- (void)setFragSize:(NSInteger)size;
 /**
  * 口语评测（外部录制）
  * @param param 参数

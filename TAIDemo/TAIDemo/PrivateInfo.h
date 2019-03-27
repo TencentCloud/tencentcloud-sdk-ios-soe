@@ -10,6 +10,8 @@
 
 @interface PrivateInfo : NSObject
 @property (nonatomic, strong) NSString *appId;
+@property (nonatomic, strong) NSString *soeAppId;
+@property (nonatomic, strong) NSString *hcmAppId;
 @property (nonatomic, strong) NSString *secretId;
 @property (nonatomic, strong) NSString *secretKey;
 + (instancetype)shareInstance;

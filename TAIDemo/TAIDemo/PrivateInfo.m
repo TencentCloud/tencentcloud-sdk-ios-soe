@@ -16,8 +16,10 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         instance = [[PrivateInfo alloc] init];
-        自行传入appId, secretId, secretKey参数
+        自行传入appId, secretId, secretKey等参数
         instance.appId = @"";
+        instance.soeAppId = @"";
+        instance.hcmAppId = @"";
         instance.secretId = @"";
         instance.secretKey = @"";
     });

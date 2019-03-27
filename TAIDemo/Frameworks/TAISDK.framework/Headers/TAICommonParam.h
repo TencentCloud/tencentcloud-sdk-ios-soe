@@ -10,13 +10,17 @@
 
 @interface TAICommonParam : NSObject
 /*
- appid
+ 账号应用id
  */
 @property (nonatomic, strong) NSString *appId;
 /*
  超时时间（默认30秒）
  */
 @property (nonatomic, assign) NSInteger timeout;
+/*
+ 重试次数（默认0次）
+ */
+@property (nonatomic, assign) NSInteger retryTimes;
 /*
  secretId
  */
