@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *textModeSegment;
 @property (weak, nonatomic) IBOutlet UITextView *responseTextView;
 @property (weak, nonatomic) IBOutlet UITextField *coeffTextField;
+@property (weak, nonatomic) IBOutlet UITextField *fragSizeTextField;
 @property (weak, nonatomic) IBOutlet UIButton *recordButton;
 @property (weak, nonatomic) IBOutlet UIButton *localRecordButton;
 
@@ -36,7 +37,22 @@
     _transSegment.selectedSegmentIndex = 0;
     _storageSegment.selectedSegmentIndex = 0;
     _coeffTextField.text = @"1.0";
+    _fragSizeTextField.text = @"1.0";
     
+    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 30.0f)];
+    UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismissKeyboard)];
+    [toolbar setItems:[NSArray arrayWithObjects:flexibleSpace, barButtonItem, nil]];
+    _fragSizeTextField.inputAccessoryView = toolbar;
+    _coeffTextField.inputAccessoryView = toolbar;
+    
+    
+}
+
+- (void)dismissKeyboard
+{
+    [_fragSizeTextField resignFirstResponder];
+    [_coeffTextField resignFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -81,6 +97,8 @@
         param.timeout = 30;
         param.retryTimes = 0;
     }
+    CGFloat fragSize = [_fragSizeTextField.text floatValue];
+    [self.oralEvaluation setFragSize:fragSize*1024];
     __weak typeof(self) ws = self;
     [self.oralEvaluation startRecordAndEvaluation:param callback:^(TAIError *error) {
         if(error.code == TAIErrCode_Succ){

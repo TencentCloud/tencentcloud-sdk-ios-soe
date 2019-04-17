@@ -167,7 +167,7 @@ typedef void (^TAIOralEvaluationCallback)(TAIError *error);
  */
 - (BOOL)isRecording;
 /**
- * 设置分片大小，建议为1024的整数倍，默认为1024*10
+ * 设置分片大小，建议为1024的整数倍，默认为1024*1
  * @param size 分片大小
  */
 - (void)setFragSize:(NSInteger)size;
