@@ -81,6 +81,7 @@
     param.soeAppId = [PrivateInfo shareInstance].soeAppId;
     param.secretId = [PrivateInfo shareInstance].secretId;
     param.secretKey = [PrivateInfo shareInstance].secretKey;
+    param.token = [PrivateInfo shareInstance].token;
     param.workMode = (TAIOralEvaluationWorkMode)self.transSegment.selectedSegmentIndex;
     param.evalMode = (TAIOralEvaluationEvalMode)self.modeSegment.selectedSegmentIndex;
     param.serverType = (TAIOralEvaluationServerType)self.serverType.selectedSegmentIndex;
@@ -116,6 +117,7 @@
     param.soeAppId = [PrivateInfo shareInstance].soeAppId;
     param.secretId = [PrivateInfo shareInstance].secretId;
     param.secretKey = [PrivateInfo shareInstance].secretKey;
+    param.token = [PrivateInfo shareInstance].token;
     param.workMode = TAIOralEvaluationWorkMode_Once;
     param.evalMode = TAIOralEvaluationEvalMode_Sentence;
     param.serverType = TAIOralEvaluationServerType_English;

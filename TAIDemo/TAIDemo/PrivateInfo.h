@@ -14,5 +14,6 @@
 @property (nonatomic, strong) NSString *hcmAppId;
 @property (nonatomic, strong) NSString *secretId;
 @property (nonatomic, strong) NSString *secretKey;
+@property (nonatomic, strong) NSString *token;
 + (instancetype)shareInstance;
 @end

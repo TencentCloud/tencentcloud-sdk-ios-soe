@@ -9,31 +9,40 @@
 #import <Foundation/Foundation.h>
 
 @interface TAICommonParam : NSObject
-/*
- 账号应用id
+/**
+ * 账号应用id
  */
 @property (nonatomic, strong) NSString *appId;
-/*
- 超时时间（默认30秒）
+/**
+ * 超时时间（默认30秒）
  */
 @property (nonatomic, assign) NSInteger timeout;
-/*
- 重试次数（默认0次）
+/**
+ * 重试次数（默认0次）
  */
 @property (nonatomic, assign) NSInteger retryTimes;
-/*
- secretId
+/**
+ * secretId
  */
 @property (nonatomic, strong) NSString *secretId;
-/*
- 外部计算签名
- 时间戳
- 签名（https://cloud.tencent.com/document/product/1004/30611 第三步）
- */
-@property (nonatomic, assign) NSInteger timestamp;
-@property (nonatomic, strong) NSString *signature;
-/*
- 内部计算签名
+/**
+ * secretKey
+ * @brief 使用内部签名，此处必填
  */
 @property (nonatomic, strong) NSString *secretKey;
+/**
+ * token
+ * @brief 临时secretKey方案此处必填
+ */
+@property (nonatomic, strong) NSString *token;
+/**
+ * 时间戳
+ * @brief 使用外部签名，此处必填
+ */
+@property (nonatomic, assign) NSInteger timestamp;
+/**
+ * 签名
+ * @brief 使用外部签名，此处必填（https://cloud.tencent.com/document/product/1004/30611 第三步）
+ */
+@property (nonatomic, strong) NSString *signature;
 @end

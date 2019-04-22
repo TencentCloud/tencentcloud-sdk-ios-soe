@@ -22,6 +22,7 @@
         instance.hcmAppId = @"";
         instance.secretId = @"";
         instance.secretKey = @"";
+        instance.token = @"";
     });
     return instance;
 }
