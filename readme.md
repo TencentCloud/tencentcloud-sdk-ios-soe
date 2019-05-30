@@ -222,7 +222,18 @@ secretKey属于安全敏感参数，线上版本一般由业务后台生成[临�
 |pronCompletion|float|发音完整度，取值范围[0, 1]，当为词模式时，取值无意义|
 |audioUrl|NSString|保存语音音频文件的下载地址（TAIOralEvaluationStorageMode_Enable有效）|
 |words|NSArray<TAIOralEvaluationWord *>|详细发音评估结果|
+|suggestedScore|float|建议评分，取值范围[0,100]|
 
+* TAIOralEvaluationPhoneInfo参数说明
+
+| 参数|类型|说明 |
+|---|---|---|
+|beginTime|int|当前单词语音起始时间点，单位为ms|
+|endTime|int|当前单词语音终止时间点，单位为ms|
+|pronAccuracy|float|音节发音准确度，取值范围[-1, 100]，当取-1时指完全不匹配|
+|detectedStress|BOOL|当前音节是否检测为重音|
+|phone|NSString|当前音节|
+|stress|BOOL|当前音节是否应为重音|
 
 * TAIOralEvaluationWord参数说明
 
@@ -234,6 +245,7 @@ secretKey属于安全敏感参数，线上版本一般由业务后台生成[临�
 |pronFluency|float|单词发音流利度，取值范围[0, 1]|
 |word|NSString|当前词|
 |matchTag|int|当前词与输入语句的匹配情况，0:匹配单词、1：新增单词、2：缺少单词|
+|phoneInfos|NSArray<TAIOralEvaluationPhoneInfo *>|音节评估详情|
 
 
 
