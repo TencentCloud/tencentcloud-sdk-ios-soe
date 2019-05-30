@@ -15,14 +15,14 @@
     static PrivateInfo *instance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
+        自行传入appId, secretId, secretKey参数
         instance = [[PrivateInfo alloc] init];
-        自行传入appId, secretId, secretKey等参数
         instance.appId = @"";
-        instance.soeAppId = @"";
-        instance.hcmAppId = @"";
         instance.secretId = @"";
         instance.secretKey = @"";
         instance.token = @"";
+        instance.soeAppId = @"";
+        instance.hcmAppId = @"";
     });
     return instance;
 }

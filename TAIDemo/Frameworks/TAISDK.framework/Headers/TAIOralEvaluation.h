@@ -89,6 +89,21 @@ typedef NS_ENUM(NSInteger, TAIOralEvaluationServerType)
 @end
 
 
+@interface TAIOralEvaluationPhoneInfo : NSObject
+//当前音节语音起始时间点，单位为ms
+@property (nonatomic, assign) int beginTime;
+//当前音节语音终止时间点，单位为ms
+@property (nonatomic, assign) int endTime;
+//音节发音准确度，取值范围[-1, 100]，当取-1时指完全不匹配
+@property (nonatomic, assign) float pronAccuracy;
+//当前音节是否检测为重音
+@property (nonatomic, assign) BOOL detectedStress;
+//当前音节
+@property (nonatomic, strong) NSString *phone;
+//当前音节是否应为重音
+@property (nonatomic, assign) BOOL stress;
+@end
+
 @interface TAIOralEvaluationWord : NSObject
 //当前单词语音起始时间点，单位为ms
 @property (nonatomic, assign) int beginTime;
@@ -102,6 +117,8 @@ typedef NS_ENUM(NSInteger, TAIOralEvaluationServerType)
 @property (nonatomic, strong) NSString *word;
 //当前词与输入语句的匹配情况，0:匹配单词、1：新增单词、2：缺少单词
 @property (nonatomic, assign) int matchTag;
+//音节评估详情
+@property (nonatomic, strong) NSArray<TAIOralEvaluationPhoneInfo *> *phoneInfos;
 @end
 
 @interface TAIOralEvaluationRet : NSObject
@@ -117,6 +134,10 @@ typedef NS_ENUM(NSInteger, TAIOralEvaluationServerType)
 @property (nonatomic, strong) NSString *audioUrl;
 //详细发音评估结果
 @property (nonatomic, strong) NSArray<TAIOralEvaluationWord *> *words;
+//建议评分，取值范围[0,100]
+//评分方式为建议评分 = 准确度（PronAccuracyfloat）× 完整度（PronCompletionfloat）×（2 - 完整度（PronCompletionfloat））
+//如若评分策略不符合请参考Words数组中的详细分数自定义评分逻辑。
+@property (nonatomic, assign) float suggestedScore;
 @end
 
 @interface TAIOralEvaluationData : NSObject
@@ -126,6 +147,17 @@ typedef NS_ENUM(NSInteger, TAIOralEvaluationServerType)
 @property (nonatomic, assign) BOOL bEnd;
 //音频数据
 @property (nonatomic, strong) NSData *audio;
+@end
+
+@interface TAIRecorderParam : NSObject
+//是否开启分片，默认YES
+@property (nonatomic, assign) BOOL fragEnable;
+//分片大小，默认1024，建议为1024的整数倍，范围【1k-10k】
+@property (nonatomic, assign) NSInteger fragSize;
+//是否开启静音检测，默认NO
+@property (nonatomic, assign) BOOL vadEnable;
+//静音检测时间间隔，单位【ms】
+@property (nonatomic, assign) NSInteger vadInterval;
 @end
 
 @class TAIOralEvaluation;
@@ -141,6 +173,19 @@ typedef NS_ENUM(NSInteger, TAIOralEvaluationServerType)
         onEvaluateData:(TAIOralEvaluationData *)data
                 result:(TAIOralEvaluationRet *)result
                  error:(TAIError *)error;
+/**
+ * 静音检测回调
+ * @param oralEvaluation 评测对象
+ * @brief 检测到静音内部不会停止录制，业务层可以根据此回调主动停止录制或提示用户
+ */
+- (void)onEndOfSpeechInOralEvaluation:(TAIOralEvaluation *)oralEvaluation;
+/**
+ * 音量分贝变化
+ * @param oralEvaluation 评测对象
+ * @param volume 分贝大小
+ * @brief volume范围【0-120】
+ */
+- (void)oralEvaluation:(TAIOralEvaluation *)oralEvaluation onVolumeChanged:(NSInteger)volume;
 @end
 
 typedef void (^TAIOralEvaluationCallback)(TAIError *error);
@@ -170,7 +215,13 @@ typedef void (^TAIOralEvaluationCallback)(TAIError *error);
  * 设置分片大小，建议为1024的整数倍，范围【1k-10k】，默认为1024*1
  * @param size 分片大小
  */
-- (void)setFragSize:(NSInteger)size;
+- (void)setFragSize:(NSInteger)size DEPRECATED_MSG_ATTRIBUTE("Please usee setRecordParam:");
+
+/**
+ * 设置录制参数
+ * @param param 录制参数
+ */
+- (void)setRecorderParam:(TAIRecorderParam *)param;
 /**
  * 口语评测（外部录制）
  * @param param 参数

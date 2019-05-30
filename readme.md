@@ -32,7 +32,7 @@ self.mathCorrection = [[TAIMathCorrection alloc] init];
 ```objc
 //二、初始化参数
 TAIMathCorrectionParam *param = [[TAIMathCorrectionParam alloc] init];
-param.sessionId = [[NSUUID UUID] UUIDString];
+param.sessionId = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
 param.appId = @"";
 param.imageData = UIImageJPEGRepresentation(_imageView.image, 0);
 param.secretId = @"";
@@ -66,7 +66,7 @@ self.oralEvaluation.delegate = self;
 ```objc
 //三、初始化参数
 TAIOralEvaluationParam *param = [[TAIOralEvaluationParam alloc] init];
-param.sessionId = [[NSUUID UUID] UUIDString];
+param.sessionId = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
 param.appId = @"";
 param.workMode = TAIOralEvaluationWorkMode_Once;
 param.evalMode = TAIOralEvaluationEvalMode_Sentence;
@@ -95,7 +95,7 @@ param.secretKey = @"";
 ```objc
 //三、初始化参数
 TAIOralEvaluationParam *param = [[TAIOralEvaluationParam alloc] init];
-param.sessionId = [[NSUUID UUID] UUIDString];
+param.sessionId = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
 param.appId = @"";
 param.workMode = TAIOralEvaluationWorkMode_Once;
 param.evalMode = TAIOralEvaluationEvalMode_Sentence;

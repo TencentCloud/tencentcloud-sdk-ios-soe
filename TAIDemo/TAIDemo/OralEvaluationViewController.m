@@ -22,10 +22,11 @@
 @property (weak, nonatomic) IBOutlet UITextField *fragSizeTextField;
 @property (weak, nonatomic) IBOutlet UIButton *recordButton;
 @property (weak, nonatomic) IBOutlet UIButton *localRecordButton;
+@property (weak, nonatomic) IBOutlet UIProgressView *progressView;
+@property (weak, nonatomic) IBOutlet UITextField *vadTextField;
 
 @property (strong, nonatomic) TAIOralEvaluation *oralEvaluation;
 @property (strong, nonatomic) NSString *fileName;
-
 @end
 
 @implementation OralEvaluationViewController
@@ -45,14 +46,14 @@
     [toolbar setItems:[NSArray arrayWithObjects:flexibleSpace, barButtonItem, nil]];
     _fragSizeTextField.inputAccessoryView = toolbar;
     _coeffTextField.inputAccessoryView = toolbar;
-    
-    
+    _vadTextField.inputAccessoryView = toolbar;
 }
 
 - (void)dismissKeyboard
 {
     [_fragSizeTextField resignFirstResponder];
     [_coeffTextField resignFirstResponder];
+    [_vadTextField resignFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -99,7 +100,15 @@
         param.retryTimes = 0;
     }
     CGFloat fragSize = [_fragSizeTextField.text floatValue];
-    [self.oralEvaluation setFragSize:fragSize*1024];
+    if(fragSize == 0){
+        return;
+    }
+    TAIRecorderParam *recordParam = [[TAIRecorderParam alloc] init];
+    recordParam.fragEnable = (param.workMode == TAIOralEvaluationWorkMode_Stream ? YES: NO);
+    recordParam.fragSize = fragSize * 1024;
+    recordParam.vadEnable = YES;
+    recordParam.vadInterval = [_vadTextField.text intValue];
+    [self.oralEvaluation setRecorderParam:recordParam];
     __weak typeof(self) ws = self;
     [self.oralEvaluation startRecordAndEvaluation:param callback:^(TAIError *error) {
         if(error.code == TAIErrCode_Succ){
@@ -117,7 +126,6 @@
     param.soeAppId = [PrivateInfo shareInstance].soeAppId;
     param.secretId = [PrivateInfo shareInstance].secretId;
     param.secretKey = [PrivateInfo shareInstance].secretKey;
-    param.token = [PrivateInfo shareInstance].token;
     param.workMode = TAIOralEvaluationWorkMode_Once;
     param.evalMode = TAIOralEvaluationEvalMode_Sentence;
     param.serverType = TAIOralEvaluationServerType_English;
@@ -156,7 +164,19 @@
         [_recordButton setTitle:@"开始录制" forState:UIControlStateNormal];
     }
     [self writeMP3Data:data.audio fileName:_fileName];
-    [self setResponse:[NSString stringWithFormat:@"oralEvaluation:seq:%ld, end:%ld, error:%@, ret:%@", (long)data.seqId, (long)data.bEnd, error, result]];
+    NSString *log = [NSString stringWithFormat:@"oralEvaluation:seq:%ld, end:%ld, error:%@, ret:%@", (long)data.seqId, (long)data.bEnd, error, result];
+    [self setResponse:log];
+}
+
+- (void)onEndOfSpeechInOralEvaluation:(TAIOralEvaluation *)oralEvaluation
+{
+    [self setResponse:@"onEndOfSpeech"];
+    [self onRecord:nil];
+}
+
+- (void)oralEvaluation:(TAIOralEvaluation *)oralEvaluation onVolumeChanged:(NSInteger)volume
+{
+    self.progressView.progress = volume / 120.0;
 }
 
 #pragma mark - ui delegate
