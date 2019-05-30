@@ -154,7 +154,7 @@ recordParam.vadInterval = 5000;
 `TAIRecorderParam`参数说明
 
 | 参数|类型|说明 |
-|---|---|---|---|
+|---|---|---|
 |fragEnable|BOOL|是否开启分片，默认YES|
 |fragSize|NSInteger|分片大小，默认1024，建议为1024的整数倍，范围【1k-10k】|
 |vadEnable|BOOL|是否开启静音检测，默认NO|
