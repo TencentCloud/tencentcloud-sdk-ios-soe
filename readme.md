@@ -119,10 +119,46 @@ __weak typeof(self) ws = self;
 }];
 ```
 
-
 注意事项
 > 外部录制三种格式目前仅支持16k采样率16bit编码单声道，如有不一致可能导致评估不准确或失败
 
+
+* 静音检测
+
+```objc
+//在开始调用`startRecordAndEvaluation`前设置录制参数
+TAIRecorderParam *recordParam = [[TAIRecorderParam alloc] init];
+recordParam.fragEnable = YES;
+recordParam.fragSize = 1024;
+recordParam.vadEnable = YES;
+recordParam.vadInterval = 5000;
+[self.oralEvaluation setRecorderParam:recordParam];
+```
+
+当检测到静音或者录音分贝变化时，通过`TAIOralEvaluationListener`通知上层。
+
+```objc
+//检测到静音
+- (void)onEndOfSpeechInOralEvaluation:(TAIOralEvaluation *)oralEvaluation
+{
+    //这里可以根据业务逻辑处理，如停止录音或提示用户
+}
+
+//音量发生变化
+- (void)oralEvaluation:(TAIOralEvaluation *)oralEvaluation onVolumeChanged:(NSInteger)volume
+{
+    //回调录音分贝大小[0-120]
+}
+```
+
+`TAIRecorderParam`参数说明
+
+| 参数|类型|说明 |
+|---|---|---|---|
+|fragEnable|BOOL|是否开启分片，默认YES|
+|fragSize|NSInteger|分片大小，默认1024，建议为1024的整数倍，范围【1k-10k】|
+|vadEnable|BOOL|是否开启静音检测，默认NO|
+|vadInterval|NSInteger|静音检测时间间隔，单位【ms】|
 
 
 #### 3、签名
