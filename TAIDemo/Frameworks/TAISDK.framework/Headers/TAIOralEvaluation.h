@@ -15,7 +15,7 @@ typedef NS_ENUM(NSInteger, TAIOralEvaluationWorkMode)
     //流式传输
     TAIOralEvaluationWorkMode_Stream = 0,
     //一次性传输
-    TAIOralEvaluationWorkMode_Once,
+    TAIOralEvaluationWorkMode_Once = 1,
 };
 
 typedef NS_ENUM(NSInteger, TAIOralEvaluationTextMode)
@@ -23,7 +23,9 @@ typedef NS_ENUM(NSInteger, TAIOralEvaluationTextMode)
     //普通文本
     TAIOralEvaluationTextMode_Noraml = 0,
     //音素结构文本
-    TAIOralEvaluationTextMode_Phoneme,
+    TAIOralEvaluationTextMode_Phoneme = 1,
+    //音素注册模式
+    TAIOralEvaluationTextMode_Phoneme_Register = 2,
 };
 
 
@@ -32,11 +34,13 @@ typedef NS_ENUM(NSInteger, TAIOralEvaluationEvalMode)
     //单词模式
     TAIOralEvaluationEvalMode_Word = 0,
     //句子模式
-    TAIOralEvaluationEvalMode_Sentence,
+    TAIOralEvaluationEvalMode_Sentence = 1,
     //段落模式
-    TAIOralEvaluationEvalMode_Paragraph,
+    TAIOralEvaluationEvalMode_Paragraph = 2,
     //自由模式
-    TAIOralEvaluationEvalMode_Free,
+    TAIOralEvaluationEvalMode_Free = 3,
+    //单词纠错模式
+    TAIOralEvaluationEvalMode_Word_Fix = 4,
 };
 
 typedef NS_ENUM(NSInteger, TAIOralEvaluationFileType)
@@ -44,9 +48,9 @@ typedef NS_ENUM(NSInteger, TAIOralEvaluationFileType)
     //pcm
     TAIOralEvaluationFileType_Raw = 1,
     //wav
-    TAIOralEvaluationFileType_Wav,
+    TAIOralEvaluationFileType_Wav = 2,
     //mp3
-    TAIOralEvaluationFileType_Mp3,
+    TAIOralEvaluationFileType_Mp3 = 3,
 };
 
 typedef NS_ENUM(NSInteger, TAIOralEvaluationStorageMode)
@@ -54,7 +58,11 @@ typedef NS_ENUM(NSInteger, TAIOralEvaluationStorageMode)
     //关闭存储
     TAIOralEvaluationStorageMode_Disable = 0,
     //开启存储
-    TAIOralEvaluationStorageMode_Enable,
+    TAIOralEvaluationStorageMode_Enable = 1,
+    //永久存储（请提工单备案）
+    TAIOralEvaluationStorageMode_Permanent = 2,
+    //自定义存储（请提工单备案）
+    TAIOralEvaluationStorageMode_Custom = 3,
 };
 
 typedef NS_ENUM(NSInteger, TAIOralEvaluationServerType)
@@ -62,7 +70,7 @@ typedef NS_ENUM(NSInteger, TAIOralEvaluationServerType)
     //英文
     TAIOralEvaluationServerType_English = 0,
     //中文
-    TAIOralEvaluationServerType_Chinese,
+    TAIOralEvaluationServerType_Chinese = 1,
 };
 
 @interface TAIOralEvaluationParam : TAICommonParam
@@ -86,6 +94,8 @@ typedef NS_ENUM(NSInteger, TAIOralEvaluationServerType)
 @property (nonatomic, assign) float scoreCoeff;
 //被评估的文本
 @property (nonatomic, strong) NSString *refText;
+//输出断句中间结果
+@property (nonatomic, assign) BOOL sentenceInfoEnabled;
 @end
 
 
@@ -102,7 +112,11 @@ typedef NS_ENUM(NSInteger, TAIOralEvaluationServerType)
 @property (nonatomic, strong) NSString *phone;
 //当前音节是否应为重音
 @property (nonatomic, assign) BOOL stress;
+//参考音素，在单词诊断模式下，代表标准音素
+@property (nonatomic, strong) NSString *referencePhone;
 @end
+
+
 
 @interface TAIOralEvaluationWord : NSObject
 //当前单词语音起始时间点，单位为ms
@@ -119,7 +133,26 @@ typedef NS_ENUM(NSInteger, TAIOralEvaluationServerType)
 @property (nonatomic, assign) int matchTag;
 //音节评估详情
 @property (nonatomic, strong) NSArray<TAIOralEvaluationPhoneInfo *> *phoneInfos;
+//参考词
+@property (nonatomic, strong) NSString *referenceWord;
 @end
+
+
+@interface TAIOralEvaluationSentenceInfo : NSObject
+//句子序号，在段落、自由说模式下有效，表示断句序号，最后的综合结果的为-1.
+@property (nonatomic, assign) int sentenceId;
+//详细发音评估结果
+@property (nonatomic, strong) NSArray<TAIOralEvaluationWord *> *words;
+//发音精准度，取值范围[-1, 100]，当取-1时指完全不匹配，当为句子模式时，是所有已识别单词准确度的加权平均值，在reftext中但未识别出来的词不计入分数中
+@property (nonatomic, assign) float pronAccuracy;
+//发音流利度，取值范围[0, 1]，当为词模式时，取值无意义；当为流式模式且请求中IsEnd未置1时，取值无意义
+@property (nonatomic, assign) float pronFluency;
+//发音完整度，取值范围[0, 1]，当为词模式时，取值无意义；当为流式模式且请求中IsEnd未置1时，取值无意义
+@property (nonatomic, assign) float pronCompletion;
+//建议评分，取值范围[0,100]，评分方式为建议评分 = 准确度（pronAccuracyfloat） 完整度（pronCompletionfloat）（2 - 完整度（pronCompletionfloat）），如若评分策略不符合请参考Words数组中的详细分数自定义评分逻辑
+@property (nonatomic, assign) float suggestedScore;
+@end
+
 
 @interface TAIOralEvaluationRet : NSObject
 //唯一标识一次评测
@@ -138,6 +171,8 @@ typedef NS_ENUM(NSInteger, TAIOralEvaluationServerType)
 //评分方式为建议评分 = 准确度（PronAccuracyfloat）× 完整度（PronCompletionfloat）×（2 - 完整度（PronCompletionfloat））
 //如若评分策略不符合请参考Words数组中的详细分数自定义评分逻辑。
 @property (nonatomic, assign) float suggestedScore;
+//断句中间结果
+@property (nonatomic, strong) NSArray<TAIOralEvaluationSentenceInfo*> *sentenceInfoSet;
 @end
 
 @interface TAIOralEvaluationData : NSObject
