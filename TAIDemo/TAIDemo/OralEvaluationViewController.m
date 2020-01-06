@@ -151,7 +151,8 @@
 {
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
     [format setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSS"];
-//    NSString *desc = [NSString stringWithCString:[string cStringUsingEncoding:NSUTF8StringEncoding] encoding:NSNonLossyASCIIStringEncoding];
+    NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:[[NSLocale preferredLanguages] objectAtIndex:0]];
+    [format setLocale:locale];
     NSString *text = _responseTextView.text;
     text = [NSString stringWithFormat:@"%@\n%@ %@", text, [format stringFromDate:[NSDate date]], string];
     _responseTextView.text = text;
