@@ -41,6 +41,12 @@ typedef NS_ENUM(NSInteger, TAIOralEvaluationEvalMode)
     TAIOralEvaluationEvalMode_Free = 3,
     //单词纠错模式
     TAIOralEvaluationEvalMode_Word_Fix = 4,
+    //情景评测模式
+    TAIOralEvaluationEvalMode_Scene = 5,
+    //多分支评测模式
+    TAIOralEvaluationEvalMode_Multi_Branch = 6,
+    //单词实时模式
+    TAIOralEvaluationEvalMode_Word_RealTime = 7,
 };
 
 typedef NS_ENUM(NSInteger, TAIOralEvaluationFileType)
