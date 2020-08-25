@@ -104,7 +104,7 @@
             [sub removeFromSuperview];
         }
     }
-    _formulaField.text = @"点击查看算式";
+    _formulaField.text = @"点击图片方框查看算式";
     NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
     if([mediaType isEqualToString:(NSString *)kUTTypeImage]){
         UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
@@ -130,7 +130,12 @@
 {
     NSInteger index = recognizer.view.tag;
     TAIMathCorrectionItem *item = _correctionRet.items[index - 1];
-    _formulaField.text = item.formula;
+    if (item.result) {
+        _formulaField.text = [NSString stringWithFormat:@"正确：%@", item.formula];
+    }
+    else {
+        _formulaField.text = [NSString stringWithFormat:@"错误：%@, 答案：%@", item.formula, item.answer];
+    }
 }
 
 - (CGRect)convertFrame:(CGRect)rect
