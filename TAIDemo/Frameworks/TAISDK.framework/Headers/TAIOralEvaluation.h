@@ -102,6 +102,8 @@ typedef NS_ENUM(NSInteger, TAIOralEvaluationServerType)
 @property (nonatomic, strong) NSString *refText;
 //输出断句中间结果
 @property (nonatomic, assign) BOOL sentenceInfoEnabled;
+//本地音频路径，只支持 mp3 格式，如果此值有效，stopRecordAndEvaluation 后将保存本次录制的音频数据到此路径下，如（aaa/bbb/ccc.mp3）
+@property (nonatomic, strong) NSString *audioPath;
 @end
 
 

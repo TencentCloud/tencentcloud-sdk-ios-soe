@@ -91,6 +91,7 @@
     param.storageMode = (TAIOralEvaluationStorageMode)self.storageSegment.selectedSegmentIndex;
     param.textMode = (TAIOralEvaluationTextMode)self.textModeSegment.selectedSegmentIndex;
     param.refText = _inputTextField.text;
+    param.audioPath = [NSString stringWithFormat:@"%@/%@.mp3", NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0], param.sessionId];
     if(param.workMode == TAIOralEvaluationWorkMode_Stream){
         param.timeout = 5;
         param.retryTimes = 5;
@@ -151,8 +152,7 @@
 {
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
     [format setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSS"];
-    NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:[[NSLocale preferredLanguages] objectAtIndex:0]];
-    [format setLocale:locale];
+//    NSString *desc = [NSString stringWithCString:[string cStringUsingEncoding:NSUTF8StringEncoding] encoding:NSNonLossyASCIIStringEncoding];
     NSString *text = _responseTextView.text;
     text = [NSString stringWithFormat:@"%@\n%@ %@", text, [format stringFromDate:[NSDate date]], string];
     _responseTextView.text = text;
@@ -164,7 +164,6 @@
     if(error.code != TAIErrCode_Succ){
         [_recordButton setTitle:@"开始录制" forState:UIControlStateNormal];
     }
-    [self writeMP3Data:data.audio fileName:_fileName];
     NSString *log = [NSString stringWithFormat:@"oralEvaluation:seq:%ld, end:%ld, error:%@, ret:%@", (long)data.seqId, (long)data.bEnd, error, result];
     [self setResponse:log];
 }
@@ -194,17 +193,5 @@
         _oralEvaluation.delegate = self;
     }
     return _oralEvaluation;
-}
-
-- (void)writeMP3Data:(NSData *)data fileName:(NSString *)fileName
-{
-    NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-    NSString *mp3Path = [path stringByAppendingPathComponent:fileName];
-    if([[NSFileManager defaultManager] fileExistsAtPath:mp3Path] == false){
-        [[NSFileManager defaultManager] createFileAtPath:mp3Path contents:nil attributes:nil];
-    }
-    NSFileHandle *handle = [NSFileHandle fileHandleForWritingAtPath:mp3Path];
-    [handle seekToEndOfFile];
-    [handle writeData:data];
 }
 @end
