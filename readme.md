@@ -112,7 +112,11 @@ TAIOralEvaluationData *data = [[TAIOralEvaluationData alloc] init];
 data.seqId = 1;
 data.bEnd = YES;
 data.audio = [NSData dataWithContentsOfFile:mp3Path];
-__weak typeof(self) ws = self;
+__weak typeof(self) ws = self;  
+
+//评测结束后是否重置AVAudioSession  true:重置  false:否
+[self.oralEvaluation resetAvAudioSession:true];  
+
 //四、传输数据
 [self.oralEvaluation oralEvaluation:param data:data callback:^(TAIError *error) {
     //接口调用结果返回
@@ -237,6 +241,7 @@ secretKey属于安全敏感参数，线上版本一般由业务后台生成[临�
 |fileType|TAIOralEvaluationFileType|是|数据格式（目前支持mp3）|
 |storageMode|TAIOralEvaluationStorageMode|式|是否存储音频文件|
 |serverType|TAIOralEvaluationServerType|是|语言类型|
+|hostType|TAIOralEvaluationHostType|否|host类型 0:国内 1:海外|
 |scoreCoeff|float|是|苛刻指数，取值为[1.0 - 4.0]范围内的浮点数，用于平滑不同年龄段的分数，1.0为小年龄段，4.0为最高年龄段|
 |refText|NSString|是|被评估语音对应的文本|
 
@@ -244,7 +249,7 @@ secretKey属于安全敏感参数，线上版本一般由业务后台生成[临�
 
 | 参数|类型|说明 |
 |---|---|---|
-|seqId|NSInteger|分片序列号|
+|seqId|NSInteger|分片序列号(从1开始)|
 |bEnd|BOOL|是否最后一个分片|
 |audio|NSData|音频数据|
 
