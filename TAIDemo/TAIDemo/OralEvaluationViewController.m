@@ -27,6 +27,8 @@
 
 @property (strong, nonatomic) TAIOralEvaluation *oralEvaluation;
 @property (strong, nonatomic) NSString *fileName;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *hostType;
+
 @end
 
 @implementation OralEvaluationViewController
@@ -34,6 +36,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _serverType.selectedSegmentIndex = 0;
+    _hostType.selectedSegmentIndex = 0;
     _modeSegment.selectedSegmentIndex = 1;
     _transSegment.selectedSegmentIndex = 0;
     _storageSegment.selectedSegmentIndex = 0;
@@ -86,6 +89,7 @@
     param.workMode = (TAIOralEvaluationWorkMode)self.transSegment.selectedSegmentIndex;
     param.evalMode = (TAIOralEvaluationEvalMode)self.modeSegment.selectedSegmentIndex;
     param.serverType = (TAIOralEvaluationServerType)self.serverType.selectedSegmentIndex;
+    param.hostType=(TAIOralEvaluationHostType)self.hostType.selectedSegmentIndex;
     param.scoreCoeff = [_coeffTextField.text intValue];
     param.fileType = TAIOralEvaluationFileType_Mp3;
     param.storageMode = (TAIOralEvaluationStorageMode)self.storageSegment.selectedSegmentIndex;
@@ -111,6 +115,7 @@
     recordParam.vadInterval = [_vadTextField.text intValue];
     [self.oralEvaluation setRecorderParam:recordParam];
     __weak typeof(self) ws = self;
+    [self.oralEvaluation resetAvAudioSession:true];
     [self.oralEvaluation startRecordAndEvaluation:param callback:^(TAIError *error) {
         if(error.code == TAIErrCode_Succ){
             [ws.recordButton setTitle:@"停止录制" forState:UIControlStateNormal];

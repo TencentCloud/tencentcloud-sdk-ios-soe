@@ -47,6 +47,8 @@ typedef NS_ENUM(NSInteger, TAIOralEvaluationEvalMode)
     TAIOralEvaluationEvalMode_Multi_Branch = 6,
     //单词实时模式
     TAIOralEvaluationEvalMode_Word_RealTime = 7,
+    //拼音模式
+    TAIOralEvaluationEvalMode_Spelling = 8,
 };
 
 typedef NS_ENUM(NSInteger, TAIOralEvaluationFileType)
@@ -79,6 +81,14 @@ typedef NS_ENUM(NSInteger, TAIOralEvaluationServerType)
     TAIOralEvaluationServerType_Chinese = 1,
 };
 
+typedef NS_ENUM(NSInteger, TAIOralEvaluationHostType)
+{
+    //国内
+    TAIOralEvaluationHostType_Common = 0,
+    //海外
+    TAIOralEvaluationHostType_Overseas = 1,
+};
+
 @interface TAIOralEvaluationParam : TAICommonParam
 //业务应用id（默认为default）
 @property (nonatomic, strong) NSString *soeAppId;
@@ -94,6 +104,8 @@ typedef NS_ENUM(NSInteger, TAIOralEvaluationServerType)
 @property (nonatomic, assign) TAIOralEvaluationStorageMode storageMode;
 //语言类型
 @property (nonatomic, assign) TAIOralEvaluationServerType serverType;
+//host类型
+@property (nonatomic, assign) TAIOralEvaluationHostType hostType;
 //文本模式
 @property (nonatomic, assign) TAIOralEvaluationTextMode textMode;
 //苛刻指数[1.0-4.0]
@@ -231,7 +243,9 @@ typedef NS_ENUM(NSInteger, TAIOralEvaluationServerType)
 - (void)oralEvaluation:(TAIOralEvaluation *)oralEvaluation onVolumeChanged:(NSInteger)volume;
 @end
 
+
 typedef void (^TAIOralEvaluationCallback)(TAIError *error);
+
 
 @interface TAIOralEvaluation : NSObject
 /**
@@ -249,11 +263,14 @@ typedef void (^TAIOralEvaluationCallback)(TAIError *error);
  * @param callback 回调
  */
 - (void)stopRecordAndEvaluation:(TAIOralEvaluationCallback)callback;
+
+- (void)resetAvAudioSession:(BOOL)isResetAVAudioSession;
 /**
  * 属否正在录制
  * @return BOOL 是否录制
  */
 - (BOOL)isRecording;
+
 /**
  * 设置分片大小，建议为1024的整数倍，范围【1k-10k】，默认为1024*1
  * @param size 分片大小
