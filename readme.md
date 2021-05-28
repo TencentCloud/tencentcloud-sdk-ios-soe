@@ -9,8 +9,8 @@ secretId和secretKey是使用SDK的安全凭证，通过以下方式获取
 ![](http://dldir1.qq.com/hudongzhibo/taisdk/document/taisdk_cloud_1.png)  
 获取到秘钥后到tencentcloud-sdk-android-soe/TAIDemo/app/src/main/java/com/tencent/taidemo/PrivateInfo.java填入对应的appId ,secretId ,secretKey.
 soeAppId 和hcmAppId根据需要填写.需要到控制台新建.
-soe控制台:https://console.cloud.tencent.com/soe/index/setting_en
-hcm控制台:https://console.cloud.tencent.com/hcm/app
+soe控制台:https://console.cloud.tencent.com/soe/index/setting_en  
+hcm控制台:https://console.cloud.tencent.com/hcm/app  
 token 不需要填写.
 
 ### 二、SDK集成
