@@ -243,7 +243,8 @@ secretKey属于安全敏感参数，线上版本一般由业务后台生成[临�
 |---|---|---|---|
 |sessionId|NSString|是|一次批改唯一标识|
 |workMode|TAIOralEvaluationWorkMode|是|传输方式|
-|evalMode|TAIOralEvaluationEvalMode|是|评测模式|
+|evalMode|TAIOralEvaluationEvalMode|是|评测模式|  
+|isFixOn|BOOL|否|true:开启单词映射,false:关闭单词映射|
 |fileType|TAIOralEvaluationFileType|是|数据格式|
 |storageMode|TAIOralEvaluationStorageMode|式|是否存储音频文件|
 |serverType|TAIOralEvaluationServerType|是|语言类型|
@@ -280,7 +281,9 @@ secretKey属于安全敏感参数，线上版本一般由业务后台生成[临�
 |pronAccuracy|float|音节发音准确度，取值范围[-1, 100]，当取-1时指完全不匹配|
 |detectedStress|BOOL|当前音节是否检测为重音|
 |phone|NSString|当前音节|
-|stress|BOOL|当前音节是否应为重音|
+|stress|BOOL|当前音节是否应为重音|  
+|referencePhone|NSString|标准音素| 
+|rLetter|NSString|音素映射的字母|
 
 * TAIOralEvaluationWord参数说明
 
