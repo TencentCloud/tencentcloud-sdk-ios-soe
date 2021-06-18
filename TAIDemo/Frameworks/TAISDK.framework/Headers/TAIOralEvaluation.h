@@ -116,6 +116,9 @@ typedef NS_ENUM(NSInteger, TAIOralEvaluationHostType)
 @property (nonatomic, assign) BOOL sentenceInfoEnabled;
 //本地音频路径，只支持 mp3 格式，如果此值有效，stopRecordAndEvaluation 后将保存本次录制的音频数据到此路径下，如（aaa/bbb/ccc.mp3）
 @property (nonatomic, strong) NSString *audioPath;
+
+//是否开启字母映射，纠错模式下
+@property (nonatomic, assign) BOOL isFixOn;
 @end
 
 
@@ -134,6 +137,8 @@ typedef NS_ENUM(NSInteger, TAIOralEvaluationHostType)
 @property (nonatomic, assign) BOOL stress;
 //参考音素，在单词诊断模式下，代表标准音素
 @property (nonatomic, strong) NSString *referencePhone;
+//音素对应的字母
+@property (nonatomic, strong) NSString *rLetter;
 @end
 
 
@@ -177,6 +182,8 @@ typedef NS_ENUM(NSInteger, TAIOralEvaluationHostType)
 @interface TAIOralEvaluationRet : NSObject
 //唯一标识一次评测
 @property (nonatomic, strong) NSString *sessionId;
+//唯一请求ID
+@property (nonatomic, strong) NSString *requestId;
 //单词发音准确度，取值范围[-1, 100]，当取-1时指完全不匹配
 @property (nonatomic, assign) float pronAccuracy;
 //单词发音流利度，取值范围[0, 1]
