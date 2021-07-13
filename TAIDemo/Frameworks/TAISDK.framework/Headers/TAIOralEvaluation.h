@@ -220,6 +220,9 @@ typedef NS_ENUM(NSInteger, TAIOralEvaluationHostType)
 @property (nonatomic, assign) BOOL vadEnable;
 //静音检测时间间隔，单位【ms】
 @property (nonatomic, assign) NSInteger vadInterval;
+//静音检测分贝阈值
+@property (nonatomic, assign) NSInteger db;
+
 @end
 
 @class TAIOralEvaluation;
@@ -240,7 +243,7 @@ typedef NS_ENUM(NSInteger, TAIOralEvaluationHostType)
  * @param oralEvaluation 评测对象
  * @brief 检测到静音内部不会停止录制，业务层可以根据此回调主动停止录制或提示用户
  */
-- (void)onEndOfSpeechInOralEvaluation:(TAIOralEvaluation *)oralEvaluation;
+- (void)oralEvaluation:(TAIOralEvaluation *)oralEvaluation  onEndOfSpeechInOralEvaluation:(BOOL)isSpeak;
 /**
  * 音量分贝变化
  * @param oralEvaluation 评测对象

@@ -16,11 +16,42 @@ token 不需要填写.
 ### 二、SDK集成
 
 #### 1、导入SDK
-
+##### 1.源码方式导入
 [Demo源码下载](https://github.com/TencentCloud/tencentcloud-sdk-ios-soe)
 
 从Demo获取SDK并导入到工程
 ![](http://dldir1.qq.com/hudongzhibo/taisdk/document/taisdk_ios_1.png)
+
+##### 2.CocoaPods集成  
+1. 安装 CocoaPods  
+```objc  
+sudo gem install cocoapods
+```  
+2. 创建 Podfile 文件  
+进入项目所在路径，输入以下命令行之后项目路径下会出现一个 Podfile 文件。
+```objc  
+pod init
+```    
+3. 编辑 Podfile 文件  
+编辑 Podfile 文件，支持选择版本号  
+进入项目所在路径，输入以下命令行之后项目路径下会出现一个 Podfile 文件。
+```objc  
+platform :ios, '8.0'
+target 'TAIDemo' do
+ pod 'TAISDK_iOS'
+end
+```  
+4. 更新并安装sdk  
+在终端窗口中输入如下命令以更新本地库文件，并安装 TAI SDK：
+```objc  
+pod install 
+```  
+或使用以下命令更新本地库版本：
+```objc  
+pod update
+```  
+pod 命令执行完后，会生成集成了 SDK 的 .xcworkspace 后缀的工程文件，双击打开即可。
+
 
 
 #### 2、接口调用
@@ -32,7 +63,8 @@ token 不需要填写.
 //一、声明并定义对象
 @property (strong, nonatomic) TAIMathCorrection *mathCorrection;
 self.mathCorrection = [[TAIMathCorrection alloc] init];
-```
+```  
+
 
 ```objc
 //二、初始化参数
@@ -148,7 +180,7 @@ recordParam.vadInterval = 5000;
 
 ```objc
 //检测到静音
-- (void)onEndOfSpeechInOralEvaluation:(TAIOralEvaluation *)oralEvaluation
+- (void)oralEvaluation:(TAIOralEvaluation *)oralEvaluation  onEndOfSpeechInOralEvaluation:(BOOL)isSpeak;
 {
     //这里可以根据业务逻辑处理，如停止录音或提示用户
 }
@@ -168,6 +200,7 @@ recordParam.vadInterval = 5000;
 |fragSize|NSInteger|分片大小，默认1024，建议为1024的整数倍，范围【1k-10k】|
 |vadEnable|BOOL|是否开启静音检测，默认NO|
 |vadInterval|NSInteger|静音检测时间间隔，单位【ms】|
+|db|NSInteger|静音检测分贝阈值|
 
 
 #### 3、签名

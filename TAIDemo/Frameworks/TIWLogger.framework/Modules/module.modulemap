@@ -1,0 +1,6 @@
+framework module TIWLogger {
+  umbrella header "TIWLogger.h"
+
+  export *
+  module * { export * }
+}

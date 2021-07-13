@@ -7,10 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <TIWLogger/TIWLogger.h>
 
 @interface TAIManager : NSObject
+
 /*
  获取版本号
  */
 + (NSString *)getVersion;
+
++ (instancetype)sharedInstance;
+
+- (TIWLogger *)getTiwLog:(NSString *)appId;
 @end
