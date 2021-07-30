@@ -19,4 +19,6 @@
 + (instancetype)sharedInstance;
 
 - (TIWLogger *)getTiwLog:(NSString *)appId;
+
+- (TIWLogger *)getTiwLog;
 @end
