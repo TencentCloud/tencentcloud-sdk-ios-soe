@@ -21,6 +21,8 @@
 		CFE5343021AEA0330052DAD5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CFE5342E21AEA0330052DAD5 /* LaunchScreen.storyboard */; };
 		CFE5343321AEA0330052DAD5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CFE5343221AEA0330052DAD5 /* main.m */; };
 		CFFFC2F421D3BD5800A58C88 /* OralEvaluationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFFFC2F321D3BD5800A58C88 /* OralEvaluationViewController.m */; };
+		FFB201CF285B15E0002B0089 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FFB201CE285B15DA002B0089 /* libc++.tbd */; };
+		FFB201D1285B15F0002B0089 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFB201D0285B15F0002B0089 /* CoreTelephony.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +47,8 @@
 		CFE5343221AEA0330052DAD5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CFFFC2F221D3BD5800A58C88 /* OralEvaluationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OralEvaluationViewController.h; sourceTree = "<group>"; };
 		CFFFC2F321D3BD5800A58C88 /* OralEvaluationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OralEvaluationViewController.m; sourceTree = "<group>"; };
+		FFB201CE285B15DA002B0089 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		FFB201D0285B15F0002B0089 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +56,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFB201D1285B15F0002B0089 /* CoreTelephony.framework in Frameworks */,
+				FFB201CF285B15E0002B0089 /* libc++.tbd in Frameworks */,
 				6EA36F10265FD5A90083E4A0 /* TAISDK.framework in Frameworks */,
 				CF3405B422A00A4700965D0A /* lame.framework in Frameworks */,
 			);
@@ -63,6 +69,8 @@
 		CF3405B022A00A4700965D0A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FFB201D0285B15F0002B0089 /* CoreTelephony.framework */,
+				FFB201CE285B15DA002B0089 /* libc++.tbd */,
 				6EA36F0F265FD5A90083E4A0 /* TAISDK.framework */,
 				CF3405B122A00A4700965D0A /* lame.framework */,
 			);

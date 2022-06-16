@@ -15,7 +15,7 @@
     static PrivateInfo *instance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        自行传入appId, secretId, secretKey参数
+//        自行传入appId, secretId, secretKey参数
         instance = [[PrivateInfo alloc] init];
         instance.appId = @"";
         instance.secretId = @"";
