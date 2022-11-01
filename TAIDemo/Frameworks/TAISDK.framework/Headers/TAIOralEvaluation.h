@@ -89,6 +89,18 @@ typedef NS_ENUM(NSInteger, TAIOralEvaluationHostType)
     TAIOralEvaluationHostType_Overseas = 1,
 };
 
+typedef NS_ENUM(NSInteger, TAIOralEvaluationAudioPermission)
+{
+    //不容许SDK对AVAudioSession 进行更改, 由App进行SetActive和SetCategory
+    TAIOralEvaluationAudioPermissionNone = 1 << 0,
+    //容许SDK对AVAudioSession进行SetCategory和Options。
+    TAIOralEvaluationAudioPermissionSetCategoryOptions = 1 << 1,
+    //容许SDK对AVAudioSession进行SetActive。
+    TAIOralEvaluationAudioPermissionSetActive = 1 << 2,
+    //容许SDK对AVAudioSession同时进行SetCategory和SetActive，默认值
+    TAIOralEvaluationAudioPermissionAll = TAIOralEvaluationAudioPermissionSetCategoryOptions | TAIOralEvaluationAudioPermissionSetActive,
+};
+
 @interface TAIOralEvaluationParam : TAICommonParam
 //业务应用id（默认为default）
 @property (nonatomic, strong) NSString *soeAppId;
@@ -119,6 +131,11 @@ typedef NS_ENUM(NSInteger, TAIOralEvaluationHostType)
 
 //是否开启字母映射，纠错模式下
 @property (nonatomic, assign) BOOL isFixOn;
+
+//被评估的文本
+@property (nonatomic, strong) NSString *keyword;
+- (NSDictionary *)toJsonObj;
+- (NSString *)toJsonStr;
 @end
 
 
@@ -139,6 +156,12 @@ typedef NS_ENUM(NSInteger, TAIOralEvaluationHostType)
 @property (nonatomic, strong) NSString *referencePhone;
 //音素对应的字母
 @property (nonatomic, strong) NSString *rLetter;
+//当前词与输入语句的匹配情况，0：匹配单词、1：新增单词、2：缺少单词、3：错读的词、4：未录入单词。
+@property (nonatomic, assign) int matchTag;
+
+- (NSDictionary *)toJsonObj;
+- (NSString *)toJsonStr;
+
 @end
 
 
@@ -160,6 +183,9 @@ typedef NS_ENUM(NSInteger, TAIOralEvaluationHostType)
 @property (nonatomic, strong) NSArray<TAIOralEvaluationPhoneInfo *> *phoneInfos;
 //参考词
 @property (nonatomic, strong) NSString *referenceWord;
+
+- (NSDictionary *)toJsonObj;
+- (NSString *)toJsonStr;
 @end
 
 
@@ -176,6 +202,10 @@ typedef NS_ENUM(NSInteger, TAIOralEvaluationHostType)
 @property (nonatomic, assign) float pronCompletion;
 //建议评分，取值范围[0,100]，评分方式为建议评分 = 准确度（pronAccuracyfloat） 完整度（pronCompletionfloat）（2 - 完整度（pronCompletionfloat）），如若评分策略不符合请参考Words数组中的详细分数自定义评分逻辑
 @property (nonatomic, assign) float suggestedScore;
+
+- (NSDictionary *)toJsonObj;
+- (NSString *)toJsonStr;
+
 @end
 
 
@@ -200,6 +230,24 @@ typedef NS_ENUM(NSInteger, TAIOralEvaluationHostType)
 @property (nonatomic, assign) float suggestedScore;
 //断句中间结果
 @property (nonatomic, strong) NSArray<TAIOralEvaluationSentenceInfo*> *sentenceInfoSet;
+
+//单词发音流利度，取值范围[0, 1]
+@property (nonatomic, assign) NSInteger refTextId;
+/**
+* 主题词命中标志，0表示没命中，1表示命中
+* 注意：此字段可能返回 null，表示取不到有效值。
+*/
+@property (nonatomic, strong) NSArray<NSNumber *> *keyWordHits;
+
+/**
+* 负向主题词命中标志，0表示没命中，1表示命中
+* 注意：此字段可能返回 null，表示取不到有效值。
+*/
+@property (nonatomic, strong) NSArray<NSNumber *> *unKeyWordHits;
+
+- (NSDictionary *)toJsonObj;
+- (NSString *)toJsonStr;
+
 @end
 
 @interface TAIOralEvaluationData : NSObject
@@ -262,6 +310,8 @@ typedef void (^TAIOralEvaluationCallback)(TAIError *error);
  * 录制数据回调
  */
 @property (nonatomic, weak) id<TAIOralEvaluationDelegate> delegate;
+
+@property (nonatomic, assign)TAIOralEvaluationAudioPermission avAudioSessionPermission; // 默认值TAIOralEvaluationAudioPermissionAll
 /**
  * 开始录制和评测
  * @param param 参数（内部录制仅支持mp3）
@@ -275,6 +325,7 @@ typedef void (^TAIOralEvaluationCallback)(TAIError *error);
 - (void)stopRecordAndEvaluation:(TAIOralEvaluationCallback)callback;
 
 - (void)resetAvAudioSession:(BOOL)isResetAVAudioSession;
+
 /**
  * 属否正在录制
  * @return BOOL 是否录制

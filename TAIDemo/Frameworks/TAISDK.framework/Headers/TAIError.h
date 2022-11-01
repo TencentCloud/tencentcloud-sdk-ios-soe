@@ -33,7 +33,7 @@ typedef NS_ENUM(NSInteger, TAIErrCode)
 };
 
 @interface TAIError : NSObject
-@property (nonatomic, assign) TAIErrCode code;
+@property (nonatomic, assign) NSInteger code; //包含TAIErrCode和其他系统的error.code
 @property (nonatomic, strong) NSString *desc;
 @property (nonatomic, strong) NSString *requestId;
 + (id)errorCode:(NSInteger)code desc:(NSString *)desc requestId:(NSString *)requestId;
