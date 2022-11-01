@@ -132,7 +132,7 @@ typedef NS_ENUM(NSInteger, TAIOralEvaluationAudioPermission)
 //是否开启字母映射，纠错模式下
 @property (nonatomic, assign) BOOL isFixOn;
 
-//被评估的文本
+//主题词和关键词
 @property (nonatomic, strong) NSString *keyword;
 - (NSDictionary *)toJsonObj;
 - (NSString *)toJsonStr;
